@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
         Button btn = (Button) findViewById(R.id.button);
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvHasil.setText(vot.getChildData("email"));
+            }
+        });
 
 
     }
@@ -37,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        vot.setRef("https://voteapp-e3557.firebaseio.com/user/1");
+        vot.setRef("https://voteapp-e3557.firebaseio.com/user/");
         vot.fetchData();
-        tvHasil.setText(vot.getData("username"));
+        vot.fetchDataChild(vot.getKey(vot.findKeyIndex("0")));
+        tvHasil.setText(vot.getChildData("username"));
 
     }
 
