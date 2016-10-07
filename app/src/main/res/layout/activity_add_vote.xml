@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.AddVote">
+    tools:context="id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.AddVote"
+    android:fillViewport="false">
 
     <LinearLayout
         android:orientation="vertical"
@@ -55,7 +56,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choices Count :"
+            android:text="Candidates Count :"
             android:id="@+id/textView8" />
 
         <Spinner
@@ -115,6 +116,6 @@
             android:id="@+id/btnCreate"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="bottom|center_horizontal" />
     </LinearLayout>
-</RelativeLayout>
+</ScrollView>

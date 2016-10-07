@@ -25,7 +25,7 @@ public class VoteAPI {
     public HashMap<Integer,String> datachildkey = new HashMap<Integer, String>();
     public int listenercount = 0;
     public HashMap<Integer,Firebase> listener = new HashMap<Integer, Firebase>();
-
+    public boolean isDataLoaded = false;
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
         Firebase.setAndroidContext(context);
@@ -42,10 +42,11 @@ public class VoteAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int inc=0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
+                 String isi = ds.getValue(String.class) == null?"Loading...":ds.getValue(String.class);
                  data.put(ds.getKey(),ds.getValue());
                  datakey.put(inc,ds.getKey());
                     inc++;
-                }
+              }
             }
 
             @Override
@@ -78,6 +79,7 @@ public class VoteAPI {
         String dts ="null";
         if (null == data.get(what)){
         //do nothing
+            getData(what);
         }else{
             dts = data.get(what).toString();
         }
@@ -96,6 +98,7 @@ public class VoteAPI {
         String dts ="null";
         if (null == datachild.get(what)){
             //do nothing
+            getChildData(what);
         }else{
             dts = datachild.get(what).toString();
         }

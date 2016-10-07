@@ -10,11 +10,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".RiwayatVote" />
-        <activity android:name=".HasilVote" />
+        <activity android:name=".MainActivity" />
+        <!--<activity android:name=".RiwayatVote" />-->
+        <!--<activity android:name=".HasilVote" />-->
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UserActivity" />
@@ -25,6 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddCandidates"
+            android:label="@string/title_activity_add_candidates"
+            android:theme="@style/AppTheme.NoActionBar" >
+
+            </activity>
     </application>
 
 </manifest>

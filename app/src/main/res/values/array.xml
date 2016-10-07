@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="ccount">
-        <item>2 Choices</item>
-        <item>3 Choices</item>
-        <item>4 Choices</item>
-        <item>5 Choices</item>
-        <item>6 Choices</item>
-        <item>7 Choices</item>
-        <item>8 Choices</item>
-        <item>9 Choices</item>
-        <item>10 Choices</item>
+        <item>2 Candidates</item>
+        <item>3 Candidates</item>
+        <item>4 Candidates</item>
+        <item>5 Candidates</item>
+        <item>6 Candidates</item>
+        <item>7 Candidates</item>
+        <item>8 Candidates</item>
+        <item>9 Candidates</item>
+        <item>10 Candidates</item>
     </string-array>
 
 </resources>

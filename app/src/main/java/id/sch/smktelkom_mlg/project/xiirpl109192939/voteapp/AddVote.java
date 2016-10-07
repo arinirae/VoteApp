@@ -1,5 +1,6 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +11,17 @@ import android.widget.Spinner;
 
 import com.firebase.client.Firebase;
 
+import java.util.Calendar;
+
 public class AddVote extends AppCompatActivity {
+    public static final String JUMLAH_CALON = "JUMLAH_CALON";
     Button cbtn;
     EditText ednama,edtime;
     CheckBox cbPriv,cbNeed;
     Spinner spCc;
+    Calendar cal = Calendar.getInstance();
     VoteAPI vp = new VoteAPI();
+    Intent addchoices = new Intent(this , AddCandidates.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +40,14 @@ public class AddVote extends AppCompatActivity {
                 if(cbPriv.isChecked())cbp = true;
                 if(cbNeed.isChecked())cbn = true;
                 String nama = ednama.getText().toString();
-                String wktu = "26-05-1999 12:32:11";
+                String wktu = String.valueOf(cal.get(Calendar.YEAR)) + "-" + String.valueOf(cal.get(Calendar.MONTH))
+                        + "-" + String.valueOf(cal.get(Calendar.DATE) ) + " " + String.valueOf(cal.get(Calendar.HOUR) )
+                        + "-" + String.valueOf(cal.get(Calendar.MINUTE) )+ "-" + String.valueOf(cal.get(Calendar.SECOND) );
                 vp.addVote(nama,Integer.parseInt(edtime.getText().toString()),cbn,cbp,wktu);
+
+                addchoices.putExtra(JUMLAH_CALON,Integer.parseInt(spCc.getSelectedItem().toString()));
+                startActivity(addchoices);
+
             }
         });
     }
