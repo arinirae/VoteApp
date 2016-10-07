@@ -65,11 +65,11 @@ public class VoteAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int inc=0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-data.put(ds.getKey(),ds.getValue().toString());
-                 datakey.put(inc,ds.getKey());
+                    data.put(ds.getKey(),ds.getValue().toString());
+                    datakey.put(inc,ds.getKey());
                     inc++;
-              }
-        }
+                }
+            }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
@@ -152,7 +152,7 @@ data.put(ds.getKey(),ds.getValue().toString());
     public boolean findKey(String what){
         boolean res = false;
         for (int i=0;i<datakey.size();i++) {
-        if(getKey(i).equals(what)){ res = true;}
+            if(getKey(i).equals(what)){ res = true;}
         }
         return res;
     }
@@ -188,8 +188,8 @@ data.put(ds.getKey(),ds.getValue().toString());
 
     /*-- LISTEN FUNCTION --*/
     public void newListenTo(String ref){
-    listener.put(listenercount,new Firebase(ref));
-    listenercount +=1;
+        listener.put(listenercount,new Firebase(ref));
+        listenercount +=1;
     }
     public void startListenerToTextView(Integer ke, final TextView txtv){
         if(null == listener.get(ke)){

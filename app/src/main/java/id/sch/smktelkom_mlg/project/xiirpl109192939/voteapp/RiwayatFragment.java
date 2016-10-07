@@ -79,15 +79,6 @@ public class RiwayatFragment extends Fragment  {
             }
         });
 
-
-        btnCek.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), HasilActivity.class);
-                intent.putExtra("getData", spDaftarRwt.getSelectedItem().toString());
-                startActivity(intent);
-            }
-        });
 //
 //        spRiwayat.setRef("https://voteapp-e3557.firebaseio.com/vote/-KVU0TrhkmVuBMmTedwz");
 //        spRiwayat.fetchData();
@@ -101,6 +92,7 @@ public class RiwayatFragment extends Fragment  {
 
         return view;
     }
+
 
 
 }

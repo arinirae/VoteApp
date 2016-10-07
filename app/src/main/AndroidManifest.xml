@@ -28,9 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HasilActivity" />
+        <!--<activity android:name=".Hasil" />-->
         <activity android:name=".UserActivity" />
         <activity android:name=".AddVote" />
+        <activity android:name=".InputCanActivity" />
         <activity
             android:name=".AddCandidates"
             android:label="@string/title_activity_add_candidates" />

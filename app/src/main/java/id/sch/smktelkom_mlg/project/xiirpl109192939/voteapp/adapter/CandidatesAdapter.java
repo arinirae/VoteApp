@@ -31,11 +31,6 @@ import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
 public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.ViewHolder> {
     ArrayList<Candidates>   candidatelist;
     private Context context;
-
-    public CandidatesAdapter(ArrayList<Candidates> mListCan) {
-
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.candidate_list,parent,false);
@@ -48,8 +43,6 @@ public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.Vi
         final Candidates candi = candidatelist.get(position);
         holder.tvNamaCan.setText(candi.nama);
         holder.tvDeskripsiCan.setText(candi.deskripsi);
-
-
         FirebaseStorage fsref = FirebaseStorage.getInstance();
         StorageReference ref = fsref.getReferenceFromUrl("gs://voteapp-e3557.appspot.com/image/");
         ref.child(candi.foto).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

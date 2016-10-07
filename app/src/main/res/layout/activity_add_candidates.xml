@@ -7,25 +7,16 @@
     android:layout_width="match_parent"
     tools:context="id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.AddCandidates">
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fabAC"
-        android:clickable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        app:layout_anchorGravity="bottom|right|end"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="20dp">
+            android:layout_height="20dp"/>
 
-        </FrameLayout>
 
         <Button
             android:layout_width="match_parent"
@@ -44,7 +35,10 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
 
-        <android.support.v7.widget.RecyclerView
+
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleViewCan"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -56,8 +50,28 @@
         android:scrollbars="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fabAC"
+        android:clickable="true"
+        app:fabSize="normal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="60dp"
+        app:layout_anchorGravity="bottom|right|end"/>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fabNext"
+        android:clickable="true"
+        app:fabSize="normal"
+        android:layout_above="@+id/fabAC"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:layout_anchorGravity="bottom|right|end"/>
 
-    </LinearLayout>
+
 
 </RelativeLayout>
 

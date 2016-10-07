@@ -23,15 +23,15 @@ public class InputCanActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 111;
     ImageView mImageCan;
     EditText edNamaCan,edDeskCan;
-    //String nowCode = "";
     boolean isImage = false;
-    String nowCode = "-KVU0TrhkmVuBMmTedwz";
+    String nowCode = "";
     VoteAPI vp = new VoteAPI();
     FloatingActionButton fabAIC;
     int ke;
     String namapoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        nowCode=getIntent().getStringExtra(AddCandidates.INVC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_can);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -51,13 +51,13 @@ public class InputCanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(isValid()){
-                vp.addVoteCandidates(nowCode,String.valueOf(ke),edNamaCan.getText().toString(),edDeskCan.getText().toString(),namapoto);
-                Intent intento = new Intent();
-                intento.putExtra(NAMA_CAN,edNamaCan.getText().toString());
-                intento.putExtra(DESK_CAN,edDeskCan.getText().toString());
-                intento.putExtra(FURI_CAN,namapoto);
-                setResult(RESULT_OK,intento);
-                finish();
+                    vp.addVoteCandidates(nowCode,String.valueOf(ke),edNamaCan.getText().toString(),edDeskCan.getText().toString(),namapoto);
+                    Intent intento = new Intent();
+                    intento.putExtra(NAMA_CAN,edNamaCan.getText().toString());
+                    intento.putExtra(DESK_CAN,edDeskCan.getText().toString());
+                    intento.putExtra(FURI_CAN,namapoto);
+                    setResult(RESULT_OK,intento);
+                    finish();
                 }
             }
         });

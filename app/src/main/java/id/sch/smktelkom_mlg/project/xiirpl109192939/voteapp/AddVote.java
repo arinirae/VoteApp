@@ -44,10 +44,20 @@ public class AddVote extends AppCompatActivity {
                         + "-" + String.valueOf(cal.get(Calendar.MINUTE) )+ "-" + String.valueOf(cal.get(Calendar.SECOND) );
                 vp.addVote(nama,Integer.parseInt(edtime.getText().toString()),cbn,cbp,wktu);
                 inaddchoices = new Intent(getBaseContext() , AddCandidates.class);
-                finish();
-                startActivity(inaddchoices);
+                inaddchoices.putExtra(INVC,vp.getLastInvCode());
+                startActivityForResult(inaddchoices, REQUEST_CODE_ADDCAN);
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADDCAN && resultCode == RESULT_OK) {
+            Intent intentback = new Intent();
+            setResult(RESULT_OK, intentback);
+            finish();
+        }
     }
 }
