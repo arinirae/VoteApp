@@ -24,10 +24,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".HomeVote"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".KetVoteActivity" />
+        <activity
             android:name=".AddCandidates"
             android:label="@string/title_activity_add_candidates"
             android:theme="@style/AppTheme.NoActionBar" >
-
             </activity>
     </application>
 
