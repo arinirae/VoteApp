@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "564580365215",
+    "firebase_url": "https://voteapp-e3557.firebaseio.com",
+    "project_id": "voteapp-e3557",
+    "storage_bucket": "voteapp-e3557.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:564580365215:android:ab97a69aa563730c",
+        "android_client_info": {
+          "package_name": "id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "564580365215-1nvu2dra8f1l9jkblsusdiafelnmvrp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdtXOn-FU5Ad1xj1zhyM37kgFtqQWuyrs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
