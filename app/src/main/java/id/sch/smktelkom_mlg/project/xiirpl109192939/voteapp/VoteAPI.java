@@ -1,5 +1,8 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -11,16 +14,21 @@ import java.util.HashMap;
  * Created by vergie on 25/10/16.
  */
 public class VoteAPI {
+    /*-- VARIABLE --*/
     public Firebase ref;
     public HashMap<String,Object> data = new HashMap<String ,Object>();
     public HashMap<Integer, String> datakey = new HashMap<Integer, String>();
     public HashMap<String,Object> datachild = new HashMap<String, Object>();
     public HashMap<Integer,String> datachildkey = new HashMap<Integer, String>();
+    public int listenercount = 0;
+    public HashMap<Integer,Firebase> listener = new HashMap<Integer, Firebase>();
 
+    /*-- CONSTRUCT --*/
     public void setRef(String refx){
         this.ref = new Firebase(refx);
     }
 
+    /*-- FETCH FUNCTION --*/
     public void fetchData(){
         this.ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -58,6 +66,7 @@ public class VoteAPI {
         });
     }
 
+    /*-- GET FUNCTION --*/
     public String getData(String what){
         String dts ="null";
         if (null == data.get(what)){
@@ -76,7 +85,6 @@ public class VoteAPI {
         }
         return dts;
     }
-
     public String getChildData(String what){
         String dts ="null";
         if (null == datachild.get(what)){
@@ -95,8 +103,11 @@ public class VoteAPI {
         }
         return dts;
     }
+    public int getListenerCount(){
+        return this.listenercount;
+    }
 
-
+    /*-- FIND FUNCTION --*/
     public String findKey(String what){
         String res = "Not Found";
         for (int i=0;i<datakey.size();i++) {
@@ -128,15 +139,39 @@ public class VoteAPI {
         return res;
     }
 
-
-
-    public void destroyData(){
-        this.data.clear();
-        this.datakey.clear();
-    }
+    /*-- ADD FUNCTION --*/
     public void addUser(String username,String email,String password){
-    this.ref.push().setValue(new UserData(username, email, password));
+        this.ref.push().setValue(new UserData(username, email, password));
     }
+
+    /*-- SET FUNCTION --*/
+    public void setValUseLink(String ref,String changeto){
+        Firebase refs = new Firebase(ref);
+        refs.setValue(changeto);
+    }
+
+    /*-- LISTEN FUNCTION --*/
+    public void newListenTo(String ref){
+    listener.put(listenercount,new Firebase(ref));
+    listenercount +=1;
+    }
+    public void startListenerToTextView(Integer ke, final TextView txtv){
+        listener.get(ke).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                txtv.setText(dataSnapshot.getValue(String.class));
+            }
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+    }
+
+
+
+    /*-- DATA TYPE --*/
     private static class UserData{
         private String username,email,password;
         public UserData(String username, String email,String password) {
@@ -145,6 +180,16 @@ public class VoteAPI {
             this.password = password;
         }
     }
+
+    /*-- DESTROY --*/
+    public void destroy(){
+        this.ref = new Firebase("");
+        this.data.clear();
+        this.datakey.clear();
+        this.datachild.clear();
+        this.datachildkey.clear();
+    }
+
 }
 
 
