@@ -17,26 +17,26 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button buttonRegister;
+    private Button buttonSignIn;
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private TextView textViewSignin;
+    private TextView textViewSignup;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        setTitle("Register");
+        setContentView(R.layout.activity_login);
+        setTitle("Login");
 
         //inisialisasi
-        buttonRegister = (Button) findViewById(R.id.buttonRegister);
+        buttonSignIn = (Button) findViewById(R.id.buttonSignin);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+        textViewSignup = (TextView) findViewById(R.id.textViewSignUp);
         progressDialog = new ProgressDialog(this);
         //end inisialisasi
 
@@ -49,13 +49,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //end firebase
 
         //agar button dan textView bisa di click
-        buttonRegister.setOnClickListener(this);
-        textViewSignin.setOnClickListener(this);
+        buttonSignIn.setOnClickListener(this);
+        textViewSignup.setOnClickListener(this);
         //end agar button dan textView bisa di click
     }
 
-    //method untuk daftar
-    private void registerUser() {
+
+    //method untuk login
+    private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
@@ -71,41 +72,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //end validasi form
 
         //validasi form OK
-        progressDialog.setMessage("Registering user ...");
+        progressDialog.setMessage("Login User...");
         progressDialog.show();
         //end validasi form OK
 
-        //penyimpanan data dalam firebase
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        //proses login, pencocokan data dengan firebase
+        firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
+                            //membuka halaman profil setelah login
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                            Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(MainActivity.this, "Could not register, please try again", Toast.LENGTH_SHORT).show();
                         }
-                        progressDialog.dismiss();
-
                     }
                 });
-        //end penyimpanan data dalam firebase
+        //proses login, pencocokan data dengan firebase
     }
-    //end method untuk daftar
+    //end method untuk login
+
 
     @Override
     public void onClick(View view) {
-        if (view == buttonRegister) {
-            registerUser();
+        if (view == buttonSignIn) {
+            userLogin();
         }
-
-        if (view == textViewSignin) {
-            //disini untuk membuka halaman login
-            startActivity(new Intent(this, LoginActivity.class));
+        if (view == textViewSignup) {
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
         }
-
     }
-}
 
+
+}
