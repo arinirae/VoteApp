@@ -1,6 +1,5 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.client.DataSnapshot;
@@ -156,17 +155,21 @@ public class VoteAPI {
     listenercount +=1;
     }
     public void startListenerToTextView(Integer ke, final TextView txtv){
-        listener.get(ke).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                txtv.setText(dataSnapshot.getValue(String.class));
-            }
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
+        if(null == listener.get(ke)){
+            txtv.setText("no data to listen");
+        }else {
+            listener.get(ke).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(null == dataSnapshot.getValue(String.class)){txtv.setText("null");}else{txtv.setText(dataSnapshot.getValue(String.class));}
+                }
 
-            }
-        });
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
+                }
+            });
+        }
     }
 
 
