@@ -18,7 +18,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".RiwayatVote" />
-        <activity android:name=".HasilVote"></activity>
+        <activity android:name=".HasilVote" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>
