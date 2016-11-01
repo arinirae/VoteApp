@@ -19,19 +19,6 @@
         android:layout_marginBottom="30dp" />
 
     <TextView
-        android:text="Vote Anda :"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3" />
-
-    <TextView
-        android:text="Siapa yang divote"
-        android:layout_width="134dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/textViewVoteSiapa"
-        android:layout_marginBottom="30dp" />
-
-    <TextView
         android:text="DAFTAR CALON "
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
