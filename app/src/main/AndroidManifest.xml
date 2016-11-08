@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <!-- <activity android:name=".RiwayatVote" /> -->
         <!-- <activity android:name=".HasilVote" /> -->
         <activity
@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".KetVoteActivity" />
     </application>
 
 </manifest>
