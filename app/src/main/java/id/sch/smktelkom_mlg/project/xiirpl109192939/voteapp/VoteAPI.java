@@ -76,10 +76,10 @@ public class VoteAPI {
 
     /*-- GET FUNCTION --*/
     public String getData(String what){
-        String dts ="null";
+        String dts ="loading...";
         if (null == data.get(what)){
         //do nothing
-            getData(what);
+            dts = getData(what);
         }else{
             dts = data.get(what).toString();
         }
@@ -89,13 +89,14 @@ public class VoteAPI {
         String dts ="null";
         if (null == datakey.get(index)){
             //do nothing
+            getKey(index);
         }else{
             dts = datakey.get(index).toString();
         }
         return dts;
     }
     public String getChildData(String what){
-        String dts ="null";
+        String dts ="loading...";
         if (null == datachild.get(what)){
             //do nothing
             getChildData(what);
@@ -105,7 +106,7 @@ public class VoteAPI {
         return dts;
     }
     public String getChildKey(Integer index){
-        String dts ="null";
+        String dts ="loading...";
         if (null == datachildkey.get(index)){
             //do nothing
         }else{
