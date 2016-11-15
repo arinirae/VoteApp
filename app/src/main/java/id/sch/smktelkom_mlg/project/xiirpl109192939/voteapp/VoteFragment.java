@@ -19,12 +19,16 @@ public class VoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_vote, container, false);
 
-
         viewPager = (ViewPager) view.findViewById(R.id.ViewPager);
         custom = new SlideActivity(this.getActivity());
         viewPager.setAdapter(custom);
 
         return view;
+    }
+    @Override
+    public void onResume() {
+        getActivity().setTitle("Voting");
+        super.onResume();
     }
 
     @Override

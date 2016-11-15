@@ -47,7 +47,7 @@ public class VoteAPI {
                  datakey.put(inc,ds.getKey());
                     inc++;
               }
-            }
+        }
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {

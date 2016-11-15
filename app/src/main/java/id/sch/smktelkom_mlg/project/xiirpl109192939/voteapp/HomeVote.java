@@ -82,6 +82,12 @@ public class HomeVote extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
+            ProfileActivity profilVote = new ProfileActivity();
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(
+                    R.id.content_home_vote, profilVote, profilVote.getTag()
+            ).commit();
+
 
         } else if (id == R.id.nav_voting) {
             VoteFragment voteActivity = new VoteFragment();
@@ -93,14 +99,14 @@ public class HomeVote extends AppCompatActivity
         } else if (id == R.id.nav_buatVoting) {
 
         } else if (id == R.id.nav_riwayatVote) {
-            RiwayatVote riwayatVote = new RiwayatVote();
+            RiwayatFragment riwayatVote = new RiwayatFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(
                     R.id.content_home_vote, riwayatVote, riwayatVote.getTag()
             ).commit();
 
         } else if (id == R.id.nav_hasilVote) {
-            HasilVote hasilVote = new HasilVote();
+            HasilFragment hasilVote = new HasilFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(
                     R.id.content_home_vote, hasilVote, hasilVote.getTag()
