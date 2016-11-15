@@ -1,12 +1,16 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.adapter;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.R;
@@ -29,7 +33,19 @@ public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.Vi
     Candidates candi = candidatelist.get(position);
         holder.tvNamaCan.setText(candi.nama);
         holder.tvDeskripsiCan.setText(candi.deskripsi);
-        holder.ivCan.setImageDrawable(candi.foto);
+        Bitmap foto = null;
+//        try {
+//
+//           foto = decodeFromFirebaseBase64(candi.foto);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        if (foto != null) {
+//            holder.ivCan.setImageBitmap(foto);
+            holder.tvDeskripsiCan.setText("gak null");
+        }else{
+        holder.tvDeskripsiCan.setText(candi.foto);
+        }
     }
 
     @Override
@@ -42,6 +58,12 @@ public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.Vi
     public CandidatesAdapter(ArrayList<Candidates> candidatelist){
         this.candidatelist = candidatelist;
     }
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView ivCan;
         TextView tvNamaCan;

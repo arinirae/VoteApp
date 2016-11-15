@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Base64;
 import android.widget.TextView;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -12,7 +13,9 @@ import com.firebase.client.ValueEventListener;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
-/**
+import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
+
+/**-KVU0TrhkmVuBMmTedwz
  * Created by vergie on 25/10/16.
  */
 public class VoteAPI {
@@ -26,6 +29,8 @@ public class VoteAPI {
     public int listenercount = 0;
     public HashMap<Integer,Firebase> listener = new HashMap<Integer, Firebase>();
     public boolean isDataLoaded = false;
+    public String lastinvc="";
+    public String changestr="";
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
         Firebase.setAndroidContext(context);
@@ -118,6 +123,11 @@ public class VoteAPI {
         return this.listenercount;
     }
 
+    public String getLastInvCode(){
+        return lastinvc;
+    }
+
+
     /*-- FIND FUNCTION --*/
     public String findKey(String what){
         String res = "Not Found";
@@ -178,6 +188,25 @@ public class VoteAPI {
             });
         }
     }
+//    public String startListenerToString(Integer ke,String cstr){
+//        if(null == listener.get(ke)){
+//            this.changestr = "no data to listen";
+//        }else {
+//            listener.get(ke).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    if(null == dataSnapshot.getValue(String.class)){cstr = "null";}else{retdat[0] = dataSnapshot.getValue(String.class);}
+//                }
+//
+//                @Override
+//                public void onCancelled(FirebaseError firebaseError) {
+//
+//                }
+//            });
+//
+//        }
+//        return this.changestr;
+//    }
 
     /*-- ADD FUNCTION --*/
     public void addUser(String username,String email,String password){
@@ -186,13 +215,24 @@ public class VoteAPI {
     public void addVote(String namanya,int durasinya,boolean needapprove,boolean privat,String startfromnya){
         this.ref.child("vote").push().child(getNewInvCode()).setValue(new VoteData(namanya,durasinya,needapprove,privat,startfromnya));
     }
-
+    public void addVoteCandidates(String invc,String namanya,String deskripsinya,String fotonya){
+        this.ref.child("vote").child(invc).child("pilihan").child("0").setValue(new Candidates(namanya,deskripsinya,fotonya));
+    }
     /*-- CUSTOM FUNCTION --*/
     public String getNewInvCode(){
         String invcode = "" ;
         Long milis = System.currentTimeMillis()/1000L;
         String milo = encodeString(milis.toString());
         return invcode;
+    }
+    public String getCanCount(){
+        HashMap<Integer, String> datakeyC = datakey;
+        if(datakeyC != null) {
+            int count = datakeyC.size();
+            return String.valueOf(count-1);
+        }else{
+            return "0";
+        }
     }
 
     /*-- DATA TYPE --*/

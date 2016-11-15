@@ -8,8 +8,8 @@ import android.graphics.drawable.Drawable;
 public class Candidates {
     public String  nama;
     public  String deskripsi;
-    public Drawable foto;
-            public Candidates(String nama,String deskripsi,Drawable foto){
+    public String foto;
+            public Candidates(String nama,String deskripsi,String foto){
                 this.nama = nama;
                 this.deskripsi = deskripsi;
                 this.foto = foto;
