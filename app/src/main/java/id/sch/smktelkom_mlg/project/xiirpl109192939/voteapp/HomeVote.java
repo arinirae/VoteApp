@@ -1,5 +1,6 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -91,7 +92,8 @@ public class HomeVote extends AppCompatActivity
             ).commit();
 
         } else if (id == R.id.nav_buatVoting) {
-
+            Intent intbv = new Intent(getBaseContext(),AddVote.class);
+            startActivity(intbv);
         } else if (id == R.id.nav_riwayatVote) {
             RiwayatVote riwayatVote = new RiwayatVote();
             FragmentManager manager = getSupportFragmentManager();

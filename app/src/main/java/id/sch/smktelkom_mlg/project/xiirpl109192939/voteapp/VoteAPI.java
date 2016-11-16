@@ -42,6 +42,8 @@ public class VoteAPI {
     public String lastinvc="";
     public String changestr="";
     private String imageStorageUrl="gs://voteapp-e3557.appspot.com/image/";
+    public HashMap<String, String> storage = new HashMap <String, String>();
+    public int increment =0 ;
 
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
@@ -200,25 +202,23 @@ public class VoteAPI {
             });
         }
     }
-//    public String startListenerToString(Integer ke,String cstr){
-//        if(null == listener.get(ke)){
-//            this.changestr = "no data to listen";
-//        }else {
-//            listener.get(ke).addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    if(null == dataSnapshot.getValue(String.class)){cstr = "null";}else{retdat[0] = dataSnapshot.getValue(String.class);}
-//                }
-//
-//                @Override
-//                public void onCancelled(FirebaseError firebaseError) {
-//
-//                }
-//            });
-//
-//        }
-//        return this.changestr;
-//    }
+
+    /*-- STORE FUNCTION --*/
+    public void store(String key,String value){
+        storage.put(key,value);
+    }
+    public String getStored(String key){
+        return storage.get(key);
+    }
+    public void incrementAdd(){
+        increment+=1;
+    }
+    public void incrementSubstract(){
+        increment+=1;
+    }
+    public int getIncrement(){
+        return increment;
+    }
 
     /*-- ADD FUNCTION --*/
     public void addUser(String username,String email,String password){
@@ -227,8 +227,8 @@ public class VoteAPI {
     public void addVote(String namanya,int durasinya,boolean needapprove,boolean privat,String startfromnya){
         this.ref.child("vote").push().child(getNewInvCode()).setValue(new VoteData(namanya,durasinya,needapprove,privat,startfromnya));
     }
-    public void addVoteCandidates(String invc,String namanya,String deskripsinya,String fotonya){
-        this.ref.child("vote").child(invc).child("pilihan").child("0").setValue(new Candidates(namanya,deskripsinya,fotonya));
+    public void addVoteCandidates(String invc,String child,String namanya,String deskripsinya,String fotonya){
+        this.ref.child("vote").child(invc).child("pilihan").child(child).setValue(new Candidates(namanya,deskripsinya,fotonya));
     }
     /*-- CUSTOM FUNCTION --*/
     public String getNewInvCode(){
@@ -329,3 +329,23 @@ public class VoteAPI {
 //    String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
 //    vp.addVoteCandidates(nowCode,edNamaCan.getText().toString(),edDeskCan.getText().toString(),imageEncoded);
 //}
+
+//    public String startListenerToString(Integer ke,String cstr){
+//        if(null == listener.get(ke)){
+//            this.changestr = "no data to listen";
+//        }else {
+//            listener.get(ke).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    if(null == dataSnapshot.getValue(String.class)){cstr = "null";}else{retdat[0] = dataSnapshot.getValue(String.class);}
+//                }
+//
+//                @Override
+//                public void onCancelled(FirebaseError firebaseError) {
+//
+//                }
+//            });
+//
+//        }
+//        return this.changestr;
+//    }

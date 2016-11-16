@@ -13,24 +13,28 @@
         <activity android:name=".MainActivity" />
         <!-- <activity android:name=".RiwayatVote" /> -->
         <!-- <activity android:name=".HasilVote" /> -->
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginActivity" >
+
+        </activity>
         <activity android:name=".ProfileActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".AddVote" />
         <activity
             android:name=".HomeVote"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!-- <activity android:name=".ProfileActivity"></activity> -->
-        <activity android:name=".KetVoteActivity" />
-        <activity android:name=".AddCandidates">
-
-        </activity>
-        <activity android:name=".InputCanActivity">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!-- <activity android:name=".ProfileActivity"></activity> -->
+        <activity android:name=".KetVoteActivity" />
+        <activity android:name=".AddCandidates">
+
+
+        </activity>
+        <activity android:name=".InputCanActivity">
 
         </activity>
         <activity android:name=".VotingLiveActivity">
