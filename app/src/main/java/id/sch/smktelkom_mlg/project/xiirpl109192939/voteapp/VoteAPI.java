@@ -1,7 +1,11 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Base64;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.client.ChildEventListener;
@@ -9,7 +13,13 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
@@ -31,6 +41,8 @@ public class VoteAPI {
     public boolean isDataLoaded = false;
     public String lastinvc="";
     public String changestr="";
+    private String imageStorageUrl="gs://voteapp-e3557.appspot.com/image/";
+
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
         Firebase.setAndroidContext(context);
@@ -282,5 +294,38 @@ public class VoteAPI {
         }
     }
 
+    /*-- STORAGE FUNCTION --*/
+    public void uploadBitmapToFireStorage(Bitmap bitmap,String fileName){
+        FirebaseStorage fsref = FirebaseStorage.getInstance();
+        StorageReference ref = fsref.getReferenceFromUrl(this.imageStorageUrl);
+        // Get the data from an ImageView as bytes
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = ref.child(fileName).putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            }
+        });
+    }
+
 
 }
+
+
+/*-- Trash Function--*/
+//public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+//    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//    bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+//    String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+//    vp.addVoteCandidates(nowCode,edNamaCan.getText().toString(),edDeskCan.getText().toString(),imageEncoded);
+//}

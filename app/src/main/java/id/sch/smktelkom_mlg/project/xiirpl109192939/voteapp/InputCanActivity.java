@@ -2,7 +2,9 @@ package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
@@ -12,9 +14,12 @@ import android.widget.ImageView;
 
 
 import com.firebase.client.core.Constants;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
@@ -47,8 +52,9 @@ public class InputCanActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bitmap imageBitmap = data.getParcelableExtra("data");
             mImageCan.setImageBitmap(imageBitmap);
-            encodeBitmapAndSaveToFirebase(imageBitmap);
+//            encodeBitmapAndSaveToFirebase(imageBitmap);
             mImageCan.setVisibility(View.VISIBLE);
+            vp.uploadBitmapToFireStorage(imageBitmap,"candidates_"+ nowCode);
         }
     }
 
@@ -58,10 +64,6 @@ public class InputCanActivity extends AppCompatActivity {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         }
     }
-    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-        vp.addVoteCandidates(nowCode,edNamaCan.getText().toString(),edDeskCan.getText().toString(),imageEncoded);
-    }
+
+
 }

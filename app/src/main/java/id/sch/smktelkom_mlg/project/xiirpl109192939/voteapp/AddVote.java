@@ -42,8 +42,8 @@ public class AddVote extends AppCompatActivity {
                         + "-" + String.valueOf(cal.get(Calendar.DATE) ) + " " + String.valueOf(cal.get(Calendar.HOUR) )
                         + "-" + String.valueOf(cal.get(Calendar.MINUTE) )+ "-" + String.valueOf(cal.get(Calendar.SECOND) );
                 vp.addVote(nama,Integer.parseInt(edtime.getText().toString()),cbn,cbp,wktu);
-//                inaddchoices = new Intent(getBaseContext() , AddCandidates.class);
-//                startActivity(inaddchoices);
+                inaddchoices = new Intent(getBaseContext() , AddCandidates.class);
+                startActivity(inaddchoices);
 
             }
         });
