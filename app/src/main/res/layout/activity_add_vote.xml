@@ -44,27 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Insert Vote Name Here"
+            android:hint="Insert Vote Name Here"
             android:ems="10"
             android:id="@+id/edVoteName" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_gravity="center_horizontal"></FrameLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Candidates Count :"
-            android:id="@+id/textView8" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:entries="@array/ccount"
-            android:spinnerMode="dropdown" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -81,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="time"
+            android:hint="Insert Voting Time Here (Minutes)"
             android:ems="10"
             android:id="@+id/edTime" />
 
