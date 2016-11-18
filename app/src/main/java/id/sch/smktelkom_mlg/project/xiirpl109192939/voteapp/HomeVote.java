@@ -14,17 +14,52 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeVote extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public static final int REQUEST_CODE_ADDVOTE = 144;
+
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_vote);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+
+        //API
+        VoteAPI ref = new VoteAPI();
+        ref.init("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/", this);
+        ref.newListenTo("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/name");
+        ref.newListenTo("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/email");
+        //ref.newListenTo("gs://voteapp-e3557.appspot.com/Profile/profile_"+(user.getUid())+".jpg");
+        //end API
+
+        //firebase
+        firebaseAuth = FirebaseAuth.getInstance();
+        //membuat variable user untuk mengambil data
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView = navigationView.getHeaderView(0);
+        TextView tvNama = (TextView) hView.findViewById(R.id.textViewNama);
+        TextView tvEmail = (TextView) hView.findViewById(R.id.textViewEmail);
+        ImageView ivPP = (ImageView) hView.findViewById(R.id.imageViewPP);
+        //tvNama.setText("Ini Nama");
+        ref.startListenerToTextView(0, tvNama);
+        ref.startListenerToTextView(1, tvEmail);
+        ref.startListenerToImageView("gs://voteapp-e3557.appspot.com/Profile/profile_" + (user.getUid()) + ".jpg", this, 0, ivPP);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +76,7 @@ public class HomeVote extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -83,14 +118,10 @@ public class HomeVote extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_profile) {
-            ProfileActivity profilVote = new ProfileActivity();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(
-                    R.id.content_home_vote, profilVote, profilVote.getTag()
-            ).commit();
-
-
+        if (id == R.id.nav_logout) {
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
         } else if (id == R.id.nav_voting) {
             VoteFragment voteActivity = new VoteFragment();
             FragmentManager manager = getSupportFragmentManager();

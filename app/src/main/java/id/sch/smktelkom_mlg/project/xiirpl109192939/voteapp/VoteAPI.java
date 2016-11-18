@@ -8,7 +8,6 @@ import android.util.Base64;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -18,6 +17,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -41,9 +41,9 @@ public class VoteAPI {
     public boolean isDataLoaded = false;
     public String lastinvc="";
     public String changestr="";
-    private String imageStorageUrl="gs://voteapp-e3557.appspot.com/image/";
     public HashMap<String, String> storage = new HashMap <String, String>();
     public int increment =0 ;
+    private String imageStorageUrl = "gs://voteapp-e3557.appspot.com/image/";
 
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
@@ -54,6 +54,9 @@ public class VoteAPI {
         this.ref = new Firebase(refx);
     }
 
+    public void setImageRef(String refx) {
+        this.imageStorageUrl = refx;
+    }
     /*-- FETCH FUNCTION --*/
     public void fetchData(){
         this.ref.addValueEventListener(new ValueEventListener() {
@@ -203,6 +206,44 @@ public class VoteAPI {
         }
     }
 
+    public void startListenerToImageView(final String urlImg, final Context context, final Integer ke, final ImageView txiv) {
+        if (null == listener.get(ke)) {
+            txiv.setImageResource(R.drawable.ic_portrait_black_24dp);
+        } else {
+            listener.get(ke).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (null == dataSnapshot.getValue(String.class)) {
+                        txiv.setImageResource(R.drawable.ic_portrait_black_24dp);
+                    } else {
+                        //txiv.setText(dataSnapshot.getValue(String.class));
+                        FirebaseStorage fsref = FirebaseStorage.getInstance();
+                        StorageReference ref = fsref.getReferenceFromUrl(urlImg);
+//                        "users/me/profile.png"
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // Got the download URL for 'users/me/profile.png'
+                                // Pass it to Picasso to download, show in ImageView and caching
+                                Picasso.with(context).load(uri.toString()).into(txiv);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        }
+    }
+
     /*-- STORE FUNCTION --*/
     public void store(String key,String value){
         storage.put(key,value);
@@ -249,28 +290,6 @@ public class VoteAPI {
         }
     }
 
-    /*-- DATA TYPE --*/
-    private static class UserData{
-        private String username,email,password;
-        public UserData(String username, String email,String password) {
-            this.username = username;
-            this.email = email;
-            this.password = password;
-        }
-    }
-    private static class VoteData{
-        String nama,startfrom;
-        int durasi;
-        boolean needapprove,privat;
-        public VoteData(String nama, Integer durasi,boolean needapprove,boolean privat,String startfrom) {
-            this.nama = nama ;
-            this.durasi = durasi;
-            this.needapprove = needapprove;
-            this.privat = privat;
-            this.startfrom = startfrom;
-        }
-    }
-
     /*-- DESTROY --*/
     public void destroy(){
         this.ref = new Firebase("");
@@ -279,7 +298,6 @@ public class VoteAPI {
         this.datachild.clear();
         this.datachildkey.clear();
     }
-
 
     /*-- BASE64 FUNCTION --*/
     private String encodeString(String s) {
@@ -318,6 +336,31 @@ public class VoteAPI {
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
             }
         });
+    }
+
+    /*-- DATA TYPE --*/
+    private static class UserData {
+        private String username, email, password;
+
+        public UserData(String username, String email, String password) {
+            this.username = username;
+            this.email = email;
+            this.password = password;
+        }
+    }
+
+    private static class VoteData {
+        String nama, startfrom;
+        int durasi;
+        boolean needapprove, privat;
+
+        public VoteData(String nama, Integer durasi, boolean needapprove, boolean privat, String startfrom) {
+            this.nama = nama;
+            this.durasi = durasi;
+            this.needapprove = needapprove;
+            this.privat = privat;
+            this.startfrom = startfrom;
+        }
     }
 
 
