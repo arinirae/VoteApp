@@ -4,45 +4,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class VoteFragment extends Fragment {
 
-    ViewPager viewPager;
-    SlideActivity custom;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_vote, container, false);
 
-        viewPager = (ViewPager) view.findViewById(R.id.ViewPager);
-        custom = new SlideActivity(this.getActivity());
-        viewPager.setAdapter(custom);
-
-        return view;
-    }
-    @Override
-    public void onResume() {
-        getActivity().setTitle("Voting");
-        super.onResume();
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        getView().findViewById(R.id.button_ket).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.btnMasuk).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), KetVoteActivity.class));
+                Intent intent = new Intent(view.getContext(), VoteActivity.class);
+                view.getContext().startActivity(intent);
             }
         });
 
+        return view;
+
     }
+
+
+
 
     //
 //    @Override
@@ -58,6 +45,6 @@ public class VoteFragment extends Fragment {
 //        });
 //
 //        viewPager = (ViewPager) findViewById(R.id.ViewPager);
-//        custom = new SlideActivity(this);
+//        custom = new SlideAdapter(this);
 //        viewPager.setAdapter(custom);
 }

@@ -18,10 +18,9 @@ public class AddVote extends AppCompatActivity {
     Button cbtn;
     EditText ednama,edtime;
     CheckBox cbPriv,cbNeed;
-    Spinner spCc;
     Calendar cal = Calendar.getInstance();
     VoteAPI vp = new VoteAPI();
-    Intent addchoices = new Intent(this , AddCandidates.class);
+    Intent inaddchoices ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +28,6 @@ public class AddVote extends AppCompatActivity {
         vp.init("https://voteapp-e3557.firebaseio.com",this);
         ednama = (EditText) findViewById(R.id.edVoteName);
         edtime = (EditText) findViewById(R.id.edTime);
-        spCc = (Spinner) findViewById(R.id.spinner);
         cbPriv = (CheckBox) findViewById(R.id.checkPrivate);
         cbNeed = (CheckBox) findViewById(R.id.checkNeedApp);
         cbtn = (Button) findViewById(R.id.btnCreate);
@@ -44,9 +42,9 @@ public class AddVote extends AppCompatActivity {
                         + "-" + String.valueOf(cal.get(Calendar.DATE) ) + " " + String.valueOf(cal.get(Calendar.HOUR) )
                         + "-" + String.valueOf(cal.get(Calendar.MINUTE) )+ "-" + String.valueOf(cal.get(Calendar.SECOND) );
                 vp.addVote(nama,Integer.parseInt(edtime.getText().toString()),cbn,cbp,wktu);
-
-                addchoices.putExtra(JUMLAH_CALON,Integer.parseInt(spCc.getSelectedItem().toString()));
-                startActivity(addchoices);
+                inaddchoices = new Intent(getBaseContext() , AddCandidates.class);
+                finish();
+                startActivity(inaddchoices);
 
             }
         });
