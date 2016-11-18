@@ -14,10 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class HomeVote extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    public static final int REQUEST_CODE_ADDVOTE = 144;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +100,7 @@ public class HomeVote extends AppCompatActivity
 
         } else if (id == R.id.nav_buatVoting) {
             Intent intbv = new Intent(getBaseContext(),AddVote.class);
-            startActivity(intbv);
+            startActivityForResult(intbv, REQUEST_CODE_ADDVOTE);
         } else if (id == R.id.nav_riwayatVote) {
             RiwayatFragment riwayatVote = new RiwayatFragment();
             FragmentManager manager = getSupportFragmentManager();
@@ -119,5 +120,13 @@ public class HomeVote extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_ADDVOTE && resultCode == RESULT_OK) {
+            Toast.makeText(HomeVote.this, "Vote Created.. Watch Your Vote!!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 }

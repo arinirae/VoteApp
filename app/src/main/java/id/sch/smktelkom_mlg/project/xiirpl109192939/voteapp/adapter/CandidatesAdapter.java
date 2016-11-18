@@ -1,7 +1,10 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.adapter;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -9,6 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +30,7 @@ import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
  */
 public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.ViewHolder> {
     ArrayList<Candidates>   candidatelist;
+    private Context context;
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.candidate_list,parent,false);
@@ -29,23 +39,26 @@ public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-    Candidates candi = candidatelist.get(position);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final Candidates candi = candidatelist.get(position);
         holder.tvNamaCan.setText(candi.nama);
         holder.tvDeskripsiCan.setText(candi.deskripsi);
-        Bitmap foto = null;
-//        try {
-//
-//           foto = decodeFromFirebaseBase64(candi.foto);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        if (foto != null) {
-//            holder.ivCan.setImageBitmap(foto);
-            holder.tvDeskripsiCan.setText("gak null");
-        }else{
-        holder.tvDeskripsiCan.setText(candi.foto);
-        }
+
+
+        FirebaseStorage fsref = FirebaseStorage.getInstance();
+        StorageReference ref = fsref.getReferenceFromUrl("gs://voteapp-e3557.appspot.com/image/");
+        ref.child(candi.foto).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.with(context).load(uri.toString()).into(holder.ivCan);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                holder.tvDeskripsiCan.setText(candi.foto);
+            }
+        });
+
     }
 
     @Override
@@ -55,7 +68,8 @@ public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.Vi
         return 0;
     }
 
-    public CandidatesAdapter(ArrayList<Candidates> candidatelist){
+    public CandidatesAdapter(Context context, ArrayList<Candidates> candidatelist){
+        this.context = context;
         this.candidatelist = candidatelist;
     }
 
