@@ -85,10 +85,10 @@ public class HomeVote extends AppCompatActivity
         if (id == R.id.nav_profile) {
 
         } else if (id == R.id.nav_voting) {
-            VoteFragment voteFragment = new VoteFragment();
+            VoteFragment voteActivity = new VoteFragment();
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(
-                    R.id.content_home_vote, voteFragment, voteFragment.getTag()
+                    R.id.content_home_vote, voteActivity, voteActivity.getTag()
             ).commit();
 
         } else if (id == R.id.nav_buatVoting) {
