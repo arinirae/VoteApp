@@ -226,6 +226,7 @@ public class VoteAPI {
     }
     public void addVote(String namanya,int durasinya,boolean needapprove,boolean privat,String startfromnya){
         this.ref.child("vote").push().child(getNewInvCode()).setValue(new VoteData(namanya,durasinya,needapprove,privat,startfromnya));
+        this.ref.child("vote").child(getLastInvCode()).child("pilihan").child("count").setValue("0");
     }
     public void addVoteCandidates(String invc,String child,String namanya,String deskripsinya,String fotonya){
         this.ref.child("vote").child(invc).child("pilihan").child(child).setValue(new Candidates(namanya,deskripsinya,fotonya));
@@ -235,6 +236,7 @@ public class VoteAPI {
         String invcode = "" ;
         Long milis = System.currentTimeMillis()/1000L;
         String milo = encodeString(milis.toString());
+        this.lastinvc = invcode;
         return invcode;
     }
     public String getCanCount(){

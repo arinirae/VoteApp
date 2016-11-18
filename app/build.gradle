@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "25.0.0"
     compileSdkVersion 23
     defaultConfig {
         applicationId "id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp"
