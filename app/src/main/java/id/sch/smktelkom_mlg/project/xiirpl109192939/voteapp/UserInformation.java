@@ -8,14 +8,12 @@ public class UserInformation {
 
     public String name;
     public String email;
+    public String gender;
 
-    public UserInformation() {
-
-    }
-
-    public UserInformation(String name, String email) {
+    public UserInformation(String name, String email, String gender) {
         this.name = name;
         this.email = email;
+        this.gender = gender;
     }
 
 }

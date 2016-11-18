@@ -72,11 +72,11 @@ public class UserActivity extends AppCompatActivity implements View.OnClickListe
         String name = editTextName.getText().toString().trim();
         String email = editTextEmail.getText().toString().trim();
 
-        UserInformation userInformation = new UserInformation(name, email);
-
+//        UserInformation userInformation = new UserInformation(name, email,);
+//
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-        databaseReference.child("userInformation").child(user.getUid()).setValue(userInformation);
+//        databaseReference.child("userInformation").child(user.getUid()).setValue(userInformation);
         Toast.makeText(this, "Information Saved...", Toast.LENGTH_LONG).show();
     }
     //end method untuk saveInformation
