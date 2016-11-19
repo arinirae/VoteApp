@@ -18,10 +18,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="137dp"
-        android:text="Masukkan Invitation Code :" />
+        android:text="Input Invitation Code :" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/editTextInvcJ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
@@ -34,8 +34,8 @@
         android:id="@+id/btnMasuk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/editTextInvcJ"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:text="Masuk" />
+        android:text="Join" />
 </RelativeLayout>

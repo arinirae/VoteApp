@@ -8,12 +8,12 @@ public class VoteActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     SlideAdapter custom;
-
+    String invcode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vote2);
-
+        invcode = getIntent().getStringExtra(VoteFragment.INVC);
         viewPager = (ViewPager) findViewById(R.id.ViewPager);
         custom = new SlideAdapter(this);
         viewPager.setAdapter(custom);

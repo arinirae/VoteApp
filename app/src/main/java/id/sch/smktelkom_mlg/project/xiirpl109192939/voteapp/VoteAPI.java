@@ -24,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
+import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.UserVote;
 
 /**-KVU0TrhkmVuBMmTedwz
  * Created by vergie on 25/10/16.
@@ -64,8 +65,7 @@ public class VoteAPI {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int inc=0;
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                 String isi = ds.getValue(String.class) == null?"Loading...":ds.getValue(String.class);
-                 data.put(ds.getKey(),ds.getValue());
+data.put(ds.getKey(),ds.getValue().toString());
                  datakey.put(inc,ds.getKey());
                     inc++;
               }
@@ -100,7 +100,7 @@ public class VoteAPI {
     public String getData(String what){
         String dts ="loading...";
         if (null == data.get(what)){
-        //do nothing
+            //do nothing
             dts = getData(what);
         }else{
             dts = data.get(what).toString();
@@ -116,6 +116,9 @@ public class VoteAPI {
             dts = datakey.get(index).toString();
         }
         return dts;
+    }
+    public int getDataCount(){
+        return datakey.size();
     }
     public String getChildData(String what){
         String dts ="loading...";
@@ -141,15 +144,15 @@ public class VoteAPI {
     }
 
     public String getLastInvCode(){
-        return lastinvc;
+        return this.lastinvc;
     }
 
 
     /*-- FIND FUNCTION --*/
-    public String findKey(String what){
-        String res = "Not Found";
+    public boolean findKey(String what){
+        boolean res = false;
         for (int i=0;i<datakey.size();i++) {
-        if(datakey.get(i) == what){ res = datakey.get(i);}
+        if(getKey(i).equals(what)){ res = true;}
         }
         return res;
     }
@@ -205,7 +208,6 @@ public class VoteAPI {
             });
         }
     }
-
     public void startListenerToImageView(final String urlImg, final Context context, final Integer ke, final ImageView txiv) {
         if (null == listener.get(ke)) {
             txiv.setImageResource(R.drawable.ic_portrait_black_24dp);
@@ -264,6 +266,10 @@ public class VoteAPI {
     /*-- ADD FUNCTION --*/
     public void addUser(String username,String email,String password){
         this.ref.push().setValue(new UserData(username, email, password));
+    }
+    public void addVoteUser(String invc,String id,String approved,String sudahpilih){
+        Firebase avuref = new Firebase("https://voteapp-e3557.firebaseio.com/vote/");
+        avuref.child(invc).child("vote_user").child(id).setValue(new UserVote(approved,sudahpilih));
     }
     public void addVote(String namanya,int durasinya,boolean needapprove,boolean privat,String startfromnya){
         this.ref.child("vote").push().child(getNewInvCode()).setValue(new VoteData(namanya,durasinya,needapprove,privat,startfromnya));

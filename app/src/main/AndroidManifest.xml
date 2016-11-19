@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity" />
+        <!--<activity android:name=".ProfileActivity" />-->
         <activity android:name=".UserActivity" />
         <activity android:name=".AddVote" />
         <activity
@@ -33,6 +33,8 @@
 
         </activity>
         <activity android:name=".KetVoteActivity" />
+
+        <activity android:name=".VoteActivity" />
         <activity android:name=".splash.splashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -41,10 +43,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        android:theme="@style/AppTheme.NoActionBar">
-    </activity>
+
     <!-- <activity android:name=".ProfileActivity"></activity> -->
-    <activity android:name=".KetVoteActivity" />
+
     <activity
         android:name=".AddCandidates"
         android:label="@string/title_activity_add_candidates"

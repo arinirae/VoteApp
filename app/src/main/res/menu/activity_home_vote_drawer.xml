@@ -7,13 +7,13 @@
             android:title="Voting" />
         <item
             android:id="@+id/nav_buatVoting"
-            android:title="Buat Voting" />
+            android:title="Create Vote" />
         <item
             android:id="@+id/nav_riwayatVote"
-            android:title="Riwayat Voting"/>
+            android:title="Vote History"/>
         <item
             android:id="@+id/nav_hasilVote"
-            android:title="Hasil Voting" />
+            android:title="Vote Result" />
         <item
             android:id="@+id/nav_logout"
             android:title="Logout" />

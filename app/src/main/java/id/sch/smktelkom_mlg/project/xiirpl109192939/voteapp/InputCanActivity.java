@@ -63,8 +63,6 @@ public class InputCanActivity extends AppCompatActivity {
                 intento.putExtra(NAMA_CAN,edNamaCan.getText().toString());
                 intento.putExtra(DESK_CAN,edDeskCan.getText().toString());
                 intento.putExtra(FURI_CAN,namapoto);
-
-
                 setResult(RESULT_OK,intento);
                 finish();
             }

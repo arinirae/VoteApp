@@ -65,7 +65,8 @@ public class RiwayatFragment extends Fragment  {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     Map<String, String> map = ds.getValue(Map.class);
-                    daftarNama.add(map.get("nama"));
+                    String datanaaama = null == map.get("nama")?"Loading...":map.get("nama");
+                    daftarNama.add(datanaaama);
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_item, daftarNama);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spDaftarRwt.setAdapter(adapter);
