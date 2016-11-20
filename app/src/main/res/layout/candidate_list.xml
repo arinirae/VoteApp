@@ -49,29 +49,26 @@
                 android:padding="16dp"
                 android:layout_weight="15" />
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="EDIT"
-                android:src="@drawable/ic_create_black_24dp"
-                android:id="@+id/buttonEdit"
-                android:textColor="?attr/colorPrimary"
-                android:layout_gravity="right"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_weight="1" />
+            <!--<ImageButton-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/candidate_list_edit"-->
+                <!--android:src="@drawable/ic_create_black_24dp"-->
+                <!--android:id="@+id/buttonEdit"-->
+                <!--android:layout_gravity="right"-->
+                <!--style="?android:attr/borderlessButtonStyle"-->
+                <!--android:layout_weight="1"-->
+                <!--android:contentDescription="@string/can_edit" />-->
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:text="DELETE"
-                android:id="@+id/buttonDelete"
-                android:src="@drawable/ic_remove_circle_black_24dp"
-                android:textColor="?attr/colorAccent"
-                android:layout_toRightOf="@+id/buttonEdit"
-
-
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_weight="1" />
+            <!--<ImageButton-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/candidate_list_delete"-->
+                <!--android:id="@+id/buttonDelete"-->
+                <!--android:src="@drawable/ic_remove_circle_black_24dp"-->
+                <!--style="?android:attr/borderlessButtonStyle"-->
+                <!--android:layout_weight="1"-->
+                <!--android:contentDescription="@string/can_delete" />-->
 
         </LinearLayout>
 

@@ -16,9 +16,6 @@ public class Candidates {
         this.foto = foto;
     }
 
-    public Candidates(){
-
-    }
 
     public String getNama() {
         return nama;

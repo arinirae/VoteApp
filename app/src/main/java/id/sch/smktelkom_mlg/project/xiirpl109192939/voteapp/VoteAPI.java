@@ -152,7 +152,7 @@ data.put(ds.getKey(),ds.getValue().toString());
     public boolean findKey(String what){
         boolean res = false;
         for (int i=0;i<datakey.size();i++) {
-        if(getKey(i).equals(what)){ res = true;}
+        if(this.datakey.get(i).equals(what)){ res = true;}
         }
         return res;
     }

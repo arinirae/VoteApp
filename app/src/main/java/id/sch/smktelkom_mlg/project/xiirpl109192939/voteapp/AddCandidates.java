@@ -20,18 +20,19 @@ import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
 public class AddCandidates extends AppCompatActivity {
     public static final int REQUEST_CODE_ADD = 112;
     public static final String CAN_CON = "0";
+    public static final String INVC = "INVC";
     ArrayList<Candidates> mListCan = new ArrayList<>();
     ArrayList<Bitmap> poto = new ArrayList<>();
     CandidatesAdapter mAdapterCan;
     //FloatingActionButton fabAC;
-    Button fabNext;
+    FloatingActionButton fabNext;
     String nowCode;
     TextView tvCan;
     FloatingActionButton fabAC;
     VoteAPI vp = new VoteAPI();
-    String foto64;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        nowCode = getIntent().getStringExtra(AddVote.INVC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_candidates);
         tvCan = (TextView) findViewById(R.id.tvCandidates);
@@ -41,15 +42,17 @@ public class AddCandidates extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentadd = new Intent(getBaseContext(),InputCanActivity.class);
+                intentadd.putExtra(INVC,nowCode);
                 intentadd.putExtra(CAN_CON,String.valueOf(vp.getIncrement()));
-                vp.incrementAdd();
                 startActivityForResult(intentadd, REQUEST_CODE_ADD);
             }
         });
-        fabNext = (Button) findViewById(R.id.buttonN);
+        fabNext = (FloatingActionButton) findViewById(R.id.fabNext);
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intentback = new Intent();
+                setResult(RESULT_OK,intentback);
                 finish();
             }
         });
@@ -60,7 +63,7 @@ public class AddCandidates extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewCan);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapterCan = new CandidatesAdapter(mListCan);
+        mAdapterCan = new CandidatesAdapter(this,mListCan);
         recyclerView.setAdapter(mAdapterCan);
     }
 
@@ -75,6 +78,7 @@ public class AddCandidates extends AppCompatActivity {
             showHideFab();
             return;
         }else if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK) {
+            vp.incrementAdd();
             mListCan.add(new Candidates(data.getStringExtra(InputCanActivity.NAMA_CAN),data.getStringExtra(InputCanActivity.DESK_CAN),data.getStringExtra(InputCanActivity.FURI_CAN)));
             Toast.makeText(this, "Candidates Added", Toast.LENGTH_SHORT).show();
             mAdapterCan.notifyDataSetChanged();
