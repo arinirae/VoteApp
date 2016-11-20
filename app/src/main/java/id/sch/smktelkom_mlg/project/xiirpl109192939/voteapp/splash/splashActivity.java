@@ -32,7 +32,7 @@ public class splashActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 iv.startAnimation(an);
                 finish();
-                Intent intent = new Intent(splashActivity.this, HomeVote.class);
+                Intent intent = new Intent(splashActivity.this, LoginActivity.class);
                 startActivity(intent);
 
             }

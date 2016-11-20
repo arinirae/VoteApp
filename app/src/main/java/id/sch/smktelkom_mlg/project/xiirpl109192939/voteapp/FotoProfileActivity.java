@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-public class FotoProifleActivity extends AppCompatActivity {
+public class FotoProfileActivity extends AppCompatActivity {
 
     private static final int CAMERA_REQUEST_CODE = 1;
     private Button btCamera, btNext;

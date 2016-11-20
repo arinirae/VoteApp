@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                                 databaseReference.child("userInformation").child(user.getUid()).setValue(userInformation);
-                                startActivity(new Intent(getApplicationContext(), FotoProifleActivity.class));
+                                startActivity(new Intent(getApplicationContext(), FotoProfileActivity.class));
                                 Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(MainActivity.this, "Could not register, please try again", Toast.LENGTH_SHORT).show();

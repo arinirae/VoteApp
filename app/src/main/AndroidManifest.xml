@@ -3,38 +3,23 @@
     package="id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logovote"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
         <!-- <activity android:name=".RiwayatVote" /> -->
-        <!-- <activity android:name=".HasilVote" /> -->
-        <activity android:name=".FotoProifleActivity">
-
-        </activity>
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-         <activity android:name=".UserActivity" />
-        <activity android:name=".AddVote" />
+        <!-- <activity android:name=".HasilActivity" /> -->
         <activity
             android:name=".HomeVote"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".KetVoteActivity" />
-
-        <activity android:name=".VoteActivity" />
-        <activity android:name=".splash.splashActivity"
+        <activity
+            android:name=".splash.splashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,12 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InputCanActivity" />
-    <activity
-        android:name=".AddCandidates"
-        android:label="@string/title_activity_add_candidates"
-
-        ></activity>
+        <activity android:name=".HasilActivity" />
+        <activity android:name=".UserActivity" />
+        <activity android:name=".AddVote" />
+        <activity
+            android:name=".AddCandidates"
+            android:label="@string/title_activity_add_candidates" />
     </application>
 
 </manifest>
