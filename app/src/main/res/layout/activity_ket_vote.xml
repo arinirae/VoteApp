@@ -50,4 +50,14 @@
         android:layout_alignStart="@+id/tvKetVotNama"
         android:text="TextView" />
 
+    <Button
+        android:id="@+id/btnPilih"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView16"
+        android:layout_marginTop="37dp"
+        android:text="Pilih" />
+
 </RelativeLayout>

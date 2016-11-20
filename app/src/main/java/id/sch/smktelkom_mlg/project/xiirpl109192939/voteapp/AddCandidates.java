@@ -2,25 +2,16 @@ package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.adapter.CandidatesAdapter;
@@ -32,11 +23,11 @@ public class AddCandidates extends AppCompatActivity {
     ArrayList<Candidates> mListCan = new ArrayList<>();
     ArrayList<Bitmap> poto = new ArrayList<>();
     CandidatesAdapter mAdapterCan;
-    FloatingActionButton fabAC;
+    //FloatingActionButton fabAC;
     Button fabNext;
     String nowCode;
     TextView tvCan;
-    FloatingActionButton fabAC,fabNext;
+    FloatingActionButton fabAC;
     VoteAPI vp = new VoteAPI();
     String foto64;
     @Override

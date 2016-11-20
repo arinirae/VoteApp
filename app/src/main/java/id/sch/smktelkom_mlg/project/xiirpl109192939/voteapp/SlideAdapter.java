@@ -11,10 +11,9 @@ import android.widget.TextView;
 
 public class SlideAdapter extends PagerAdapter {
 
-    String inviteCode;
-
     public int[] imageResources =
-            {R.drawable.capture1, R.drawable.capture2, R.drawable.capture3, R.drawable.capture4, R.drawable.capture5, R.drawable.capture6};
+            {R.drawable.calon1idxfg4d, R.drawable.calon2idxfg4d};
+    String inviteCode;
     private Context ctx;
     private LayoutInflater layoutInflater;
 

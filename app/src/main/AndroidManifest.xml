@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".VoteActivity" />
         <!-- <activity android:name=".RiwayatVote" /> -->
         <!-- <activity android:name=".HasilActivity" /> -->
         <activity
