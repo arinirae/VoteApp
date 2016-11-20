@@ -16,7 +16,7 @@
             android:title="Vote Result" />
         <item
             android:id="@+id/nav_logout"
-            android:title="Logout" />
+            android:title="" />
     </group>
 
     <!--<item android:title="Communicate">-->

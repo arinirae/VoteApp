@@ -1,20 +1,16 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
-
-import com.firebase.client.Firebase;
 
 import java.util.Calendar;
 
 public class AddVote extends AppCompatActivity {
-    public static final String JUMLAH_CALON = "JUMLAH_CALON";
     public static final int REQUEST_CODE_ADDCAN = 145;
     public static final String INVC = "INVC";
     Button cbtn;
