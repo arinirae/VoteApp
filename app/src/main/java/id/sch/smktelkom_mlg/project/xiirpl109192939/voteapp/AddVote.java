@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
-
-import com.firebase.client.Firebase;
 
 import java.util.Calendar;
 
@@ -26,6 +23,7 @@ public class AddVote extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_vote);
+
         vp.init("https://voteapp-e3557.firebaseio.com",this);
         ednama = (EditText) findViewById(R.id.edVoteName);
         edtime = (EditText) findViewById(R.id.edTime);

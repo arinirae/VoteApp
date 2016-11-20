@@ -34,6 +34,10 @@ public class HomeVote extends AppCompatActivity
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (firebaseAuth.getCurrentUser() == null) {
+            finish();
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+        }
 
         //API
         VoteAPI ref = new VoteAPI();
@@ -140,13 +144,6 @@ public class HomeVote extends AppCompatActivity
             FragmentManager manager = getSupportFragmentManager();
             manager.beginTransaction().replace(
                     R.id.content_home_vote, riwayatVote, riwayatVote.getTag()
-            ).commit();
-
-        } else if (id == R.id.nav_hasilVote) {
-            HasilFragment hasilVote = new HasilFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(
-                    R.id.content_home_vote, hasilVote, hasilVote.getTag()
             ).commit();
 
         }
