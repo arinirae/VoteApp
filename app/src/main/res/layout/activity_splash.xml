@@ -15,6 +15,6 @@
         android:layout_centerInParent="true"
         android:src="@drawable/logovote"
         android:id="@+id/ivSplash"
-
          />
+    <!--android:src="@drawable/logovote"-->
 </RelativeLayout>
