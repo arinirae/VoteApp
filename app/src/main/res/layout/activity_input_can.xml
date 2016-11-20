@@ -73,11 +73,27 @@
         android:layout_gravity="center_horizontal"
         android:visibility="gone" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload Image"
-        android:id="@+id/buttonCapCan" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pick Image"
+                    android:layout_weight="1"
+                    android:id="@+id/buttonGalCan"
+                    android:visibility="gone" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Capture Image"
+                    android:layout_weight="1"
+                    android:id="@+id/buttonCapCan" />
+            </LinearLayout>
 
         </LinearLayout>
 
