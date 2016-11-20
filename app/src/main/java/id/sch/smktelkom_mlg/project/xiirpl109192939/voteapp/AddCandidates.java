@@ -11,6 +11,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -30,6 +32,10 @@ public class AddCandidates extends AppCompatActivity {
     ArrayList<Candidates> mListCan = new ArrayList<>();
     ArrayList<Bitmap> poto = new ArrayList<>();
     CandidatesAdapter mAdapterCan;
+    FloatingActionButton fabAC;
+    Button fabNext;
+    String nowCode;
+    TextView tvCan;
     FloatingActionButton fabAC,fabNext;
     VoteAPI vp = new VoteAPI();
     String foto64;
@@ -37,6 +43,7 @@ public class AddCandidates extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_candidates);
+        tvCan = (TextView) findViewById(R.id.tvCandidates);
         fabAC = (FloatingActionButton) findViewById(R.id.fabAC);
         fabAC.setImageResource(R.drawable.ic_add_black_24dp);
         fabAC.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +55,7 @@ public class AddCandidates extends AppCompatActivity {
                 startActivityForResult(intentadd, REQUEST_CODE_ADD);
             }
         });
-        fabNext = (FloatingActionButton) findViewById(R.id.fabNext);
-        fabNext.setImageResource(R.drawable.ic_add_black_24dp);
+        fabNext = (Button) findViewById(R.id.buttonN);
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +93,12 @@ public class AddCandidates extends AppCompatActivity {
     }
 
     public void showHideFab(){
+        if(vp.getIncrement()==1){
+            tvCan.setText("Add minimal 2 candidates");
+        }
         if(vp.getIncrement()>=2){
             fabNext.setVisibility(View.VISIBLE);
+        tvCan.setVisibility(View.GONE);
         }else{
             fabNext.setVisibility(View.GONE);
         }

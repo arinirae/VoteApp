@@ -1,7 +1,9 @@
 package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.firebase.client.core.Constants;
@@ -30,8 +33,11 @@ public class InputCanActivity extends AppCompatActivity {
     public static final String DESK_CAN = "DESK_CAN";
     public static final String NAMA_CAN = "NAMA_CAN";
     public static final String FURI_CAN = "FURI_CAN";
+    public static final int REQUEST_IMAGE_GALLERY = 112;
     ImageView mImageCan;
     EditText edNamaCan,edDeskCan;
+    String nowCode = "";
+    boolean isImage = false;
     String nowCode = "-KVU0TrhkmVuBMmTedwz";
     VoteAPI vp = new VoteAPI();
     FloatingActionButton fabAIC;
@@ -57,6 +63,7 @@ public class InputCanActivity extends AppCompatActivity {
         fabAIC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isValid()){
                 vp.addVoteCandidates(nowCode,String.valueOf(ke),edNamaCan.getText().toString(),edDeskCan.getText().toString(),namapoto);
                 Intent intento = new Intent();
                 intento.putExtra(NAMA_CAN,edNamaCan.getText().toString());
@@ -64,6 +71,7 @@ public class InputCanActivity extends AppCompatActivity {
                 intento.putExtra(FURI_CAN,namapoto);
                 setResult(RESULT_OK,intento);
                 finish();
+                }
             }
         });
 
@@ -71,6 +79,12 @@ public class InputCanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onLaunchCamera();
+            }
+        });
+        findViewById(R.id.buttonGalCan).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onLaunchGallery();
             }
         });
 
@@ -84,6 +98,28 @@ public class InputCanActivity extends AppCompatActivity {
             mImageCan.setImageBitmap(imageBitmap);
             mImageCan.setVisibility(View.VISIBLE);
             vp.uploadBitmapToFireStorage(imageBitmap,namapoto);
+        }else if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            Bitmap imageBitmap = BitmapFactory.decodeFile(picturePath);
+
+            mImageCan.setImageBitmap(imageBitmap);
+            mImageCan.setVisibility(View.VISIBLE);
+            vp.uploadBitmapToFireStorage(imageBitmap,namapoto);
+        }
+        if(resultCode ==RESULT_OK){
+            findViewById(R.id.buttonGalCan).setVisibility(View.GONE);
+            findViewById(R.id.buttonCapCan).setVisibility(View.GONE);
+            isImage = true;
         }
     }
 
@@ -91,6 +127,12 @@ public class InputCanActivity extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    public void onLaunchGallery(){
+        Intent chooserIntent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (chooserIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(chooserIntent, REQUEST_IMAGE_GALLERY);
         }
     }
 
@@ -103,5 +145,21 @@ public class InputCanActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public boolean isValid(){
+        boolean res = true;
+        if(!isImage){
+            Toast.makeText(InputCanActivity.this, "You Must Choose Image First!", Toast.LENGTH_SHORT).show();
+            res = false;
+        }
+        if(edNamaCan.getText().toString().isEmpty()){
+            edNamaCan.setError("You Need Name!");
+            res = false;
+        }
+        if(edDeskCan.getText().toString().isEmpty()){
+            edDeskCan.setError("You Need Description!");
+            res = false;
+        }
+        return res;
     }
 }
