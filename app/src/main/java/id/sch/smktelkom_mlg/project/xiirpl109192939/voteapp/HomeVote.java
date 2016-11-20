@@ -122,6 +122,7 @@ public class HomeVote extends AppCompatActivity
             firebaseAuth.signOut();
             finish();
             startActivity(new Intent(this, LoginActivity.class));
+
         } else if (id == R.id.nav_voting) {
             VoteFragment voteActivity = new VoteFragment();
             FragmentManager manager = getSupportFragmentManager();
@@ -132,6 +133,7 @@ public class HomeVote extends AppCompatActivity
         } else if (id == R.id.nav_buatVoting) {
             Intent intbv = new Intent(getBaseContext(),AddVote.class);
             startActivityForResult(intbv, REQUEST_CODE_ADDVOTE);
+
         } else if (id == R.id.nav_riwayatVote) {
             RiwayatFragment riwayatVote = new RiwayatFragment();
             FragmentManager manager = getSupportFragmentManager();
@@ -139,14 +141,15 @@ public class HomeVote extends AppCompatActivity
                     R.id.content_home_vote, riwayatVote, riwayatVote.getTag()
             ).commit();
 
-        } else if (id == R.id.nav_hasilVote) {
-            HasilFragment hasilVote = new HasilFragment();
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().replace(
-                    R.id.content_home_vote, hasilVote, hasilVote.getTag()
-            ).commit();
-
-        }
+       }
+// else if (id == R.id.nav_hasilVote) {
+//            HasilActivity hasilVote = new HasilActivity();
+//            FragmentManager manager = getSupportFragmentManager();
+//            manager.beginTransaction().replace(
+//                    R.id.content_home_vote, hasilVote, hasilVote.getTag()
+//            ).commit();
+//
+//        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
