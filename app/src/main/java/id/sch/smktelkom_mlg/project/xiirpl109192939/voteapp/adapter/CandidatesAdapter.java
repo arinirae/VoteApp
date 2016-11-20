@@ -31,6 +31,11 @@ import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
 public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.ViewHolder> {
     ArrayList<Candidates>   candidatelist;
     private Context context;
+
+    public CandidatesAdapter(ArrayList<Candidates> mListCan) {
+
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.candidate_list,parent,false);

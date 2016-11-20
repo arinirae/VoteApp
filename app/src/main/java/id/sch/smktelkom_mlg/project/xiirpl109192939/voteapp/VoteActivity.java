@@ -16,6 +16,7 @@ public class VoteActivity extends AppCompatActivity {
         invcode = getIntent().getStringExtra(VoteFragment.INVC);
         viewPager = (ViewPager) findViewById(R.id.ViewPager);
         custom = new SlideAdapter(this);
+        custom.setInviteCode(getIntent().getStringExtra("INVITE_CODE"));
         viewPager.setAdapter(custom);
 
     }

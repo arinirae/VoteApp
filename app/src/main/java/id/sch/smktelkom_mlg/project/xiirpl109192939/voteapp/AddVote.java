@@ -15,8 +15,6 @@ import java.util.Calendar;
 
 public class AddVote extends AppCompatActivity {
     public static final String JUMLAH_CALON = "JUMLAH_CALON";
-    public static final int REQUEST_CODE_ADDCAN = 145;
-    public static final String INVC = "INVC";
     Button cbtn;
     EditText ednama,edtime;
     CheckBox cbPriv,cbNeed;
@@ -45,20 +43,10 @@ public class AddVote extends AppCompatActivity {
                         + "-" + String.valueOf(cal.get(Calendar.MINUTE) )+ "-" + String.valueOf(cal.get(Calendar.SECOND) );
                 vp.addVote(nama,Integer.parseInt(edtime.getText().toString()),cbn,cbp,wktu);
                 inaddchoices = new Intent(getBaseContext() , AddCandidates.class);
-                inaddchoices.putExtra(INVC,vp.getLastInvCode());
-                startActivityForResult(inaddchoices, REQUEST_CODE_ADDCAN);
+                finish();
+                startActivity(inaddchoices);
 
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_ADDCAN && resultCode == RESULT_OK) {
-            Intent intentback = new Intent();
-            setResult(RESULT_OK, intentback);
-            finish();
-        }
     }
 }

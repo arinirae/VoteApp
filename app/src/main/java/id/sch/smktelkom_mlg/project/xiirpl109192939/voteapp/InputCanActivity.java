@@ -32,14 +32,13 @@ public class InputCanActivity extends AppCompatActivity {
     public static final String FURI_CAN = "FURI_CAN";
     ImageView mImageCan;
     EditText edNamaCan,edDeskCan;
-    String nowCode = "";
+    String nowCode = "-KVU0TrhkmVuBMmTedwz";
     VoteAPI vp = new VoteAPI();
     FloatingActionButton fabAIC;
     int ke;
     String namapoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        nowCode=getIntent().getStringExtra(AddCandidates.INVC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_can);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

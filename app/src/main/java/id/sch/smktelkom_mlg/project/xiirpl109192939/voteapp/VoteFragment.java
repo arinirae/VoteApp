@@ -2,72 +2,39 @@ package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.firebase.client.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import android.widget.TextView;
 
 public class VoteFragment extends Fragment {
 
-    public static final String INVC = "INVC";
-    VoteAPI vpvf;
-    View view;
-    EditText edInvcJ;
-FirebaseAuth firebaseAuth;
-    FirebaseUser user;
+    EditText etInvite;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
-        Firebase.setAndroidContext(getActivity().getBaseContext());
-        firebaseAuth = FirebaseAuth.getInstance();
- user = firebaseAuth.getCurrentUser();
-        vpvf = new VoteAPI();
-        view = inflater.inflate(R.layout.activity_vote, container, false);
-        vpvf.setRef("https://voteapp-e3557.firebaseio.com/vote/");
-        vpvf.fetchData();
+        View view = inflater.inflate(R.layout.activity_vote, container, false);
 
-        edInvcJ = (EditText) view.findViewById(R.id.editTextInvcJ);
-
+        etInvite = (EditText) view.findViewById(R.id.editTextInvite);
 
         view.findViewById(R.id.btnMasuk).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(edInvcJ.getText().toString().isEmpty()){
-                    edInvcJ.setError("Insert Vote Invitation Code");
-                }else {
-gotoVote();
-                }
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), VoteActivity.class);
+                intent.putExtra("INVITE_CODE", etInvite.getText().toString());
+                startActivity(intent);
             }
         });
-
 
         return view;
 
     }
 
 
-public void gotoVote(){
-    if(vpvf.findKey(edInvcJ.getText().toString())) {
-        vpvf.fetchDataChild(edInvcJ.getText().toString());
-        Intent intent = new Intent(view.getContext(), VoteActivity.class);
-        intent.putExtra(INVC,edInvcJ.getText().toString().trim());
-        vpvf.addVoteUser(edInvcJ.getText().toString(),user.getUid(),vpvf.getChildData("needapprove"),"false");
-        view.getContext().startActivity(intent);
-
-    }else if (vpvf.getKey(0)==null) {
-        Toast.makeText(getActivity().getBaseContext(), "Loading data... Please Try Again", Toast.LENGTH_SHORT).show();
-    }else {
-        Toast.makeText(getActivity().getBaseContext(), "There is no vote using that code", Toast.LENGTH_SHORT).show();
-    }
-}
 
 
     //

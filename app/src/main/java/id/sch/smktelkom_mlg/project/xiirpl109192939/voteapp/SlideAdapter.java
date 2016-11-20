@@ -11,13 +11,21 @@ import android.widget.TextView;
 
 public class SlideAdapter extends PagerAdapter {
 
+    String inviteCode;
+
     public int[] imageResources =
             {R.drawable.capture1, R.drawable.capture2, R.drawable.capture3, R.drawable.capture4, R.drawable.capture5, R.drawable.capture6};
     private Context ctx;
     private LayoutInflater layoutInflater;
 
+
+
     public SlideAdapter(Context c) {
         ctx = c;
+    }
+
+    public void setInviteCode(String inv){
+        this.inviteCode = inv;
     }
 
     @Override
@@ -26,7 +34,7 @@ public class SlideAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         layoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View itemView = layoutInflater.inflate(R.layout.activity_slide, container, false);
         final ImageButton imageButton = (ImageButton) itemView.findViewById(R.id.swip_image_view);
@@ -39,7 +47,13 @@ public class SlideAdapter extends PagerAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), KetVoteActivity.class);
+                intent.putExtra("INVITE_CODE", inviteCode);
+                intent.putExtra("POS", position + "");
                 view.getContext().startActivity(intent);
+
+//                Intent intent = new Intent(ctx, KetVoteActivity.class);
+//                intent.putExtra(KETERANGAN,getImageResources());
+//                ctx.startActivity(intent);
             }
         });
 

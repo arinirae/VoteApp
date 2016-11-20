@@ -9,10 +9,26 @@ public class Candidates {
     public String  nama;
     public  String deskripsi;
     public String foto;
-            public Candidates(String nama,String deskripsi,String foto){
-                this.nama = nama;
-                this.deskripsi = deskripsi;
-                this.foto = foto;
-            }
 
+    public Candidates(String nama,String deskripsi,String foto){
+        this.nama = nama;
+        this.deskripsi = deskripsi;
+        this.foto = foto;
+    }
+
+    public Candidates(){
+
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public String getDeskripsi() {
+        return deskripsi;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
 }
