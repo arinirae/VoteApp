@@ -12,7 +12,14 @@
     tools:context="id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.RiwayatFragment">
 
     <TextView
-        android:text="Riwayat Vote"
+        android:text="DAFTAR RIWAYAT VOTE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:layout_marginBottom="30dp" />
+
+    <TextView
+        android:text="Daftar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView2"
@@ -25,7 +32,7 @@
         android:layout_marginBottom="30dp" />
 
     <Button
-        android:text="CHECK"
+        android:text="LIHAT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/buttonCek"

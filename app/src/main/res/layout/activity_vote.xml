@@ -21,12 +21,12 @@
         android:text="Input Invitation Code :" />
 
     <EditText
-        android:id="@+id/editTextInvite"
+        android:id="@+id/editTextInvcJ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="29dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -34,7 +34,7 @@
         android:id="@+id/btnMasuk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextInvite"
+        android:layout_below="@+id/editTextInvcJ"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:text="Join" />
