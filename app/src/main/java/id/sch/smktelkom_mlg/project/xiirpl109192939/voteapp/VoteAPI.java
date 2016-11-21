@@ -22,9 +22,11 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Map;
 
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.UserVote;
+import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.VoteData;
 
 /**-KVU0TrhkmVuBMmTedwz
  * Created by vergie on 25/10/16.
@@ -272,8 +274,15 @@ data.put(ds.getKey(),ds.getValue().toString());
         avuref.child(invc).child("vote_user").child(id).setValue(new UserVote(approved,sudahpilih));
     }
     public void addVote(String namanya,int durasinya,boolean needapprove,boolean privat,String startfromnya){
-        this.ref.child("vote").push().child(getNewInvCode()).setValue(new VoteData(namanya,durasinya,needapprove,privat,startfromnya));
-        this.ref.child("vote").child(getLastInvCode()).child("pilihan").child("count").setValue("0");
+        Map<String,String> pilihan = new HashMap<String,String>();
+        pilihan.put("count","0");
+        Map<String,String> uservote = new HashMap<String,String>();
+        uservote.put("count","0");
+        VoteData vd = new VoteData(namanya,durasinya,needapprove,privat,startfromnya,pilihan,uservote);
+        Firebase rc = this.ref.child("vote").push();
+        rc.setValue(vd);
+        this.lastinvc = rc.getKey();
+
     }
     public void addVoteCandidates(String invc,String child,String namanya,String deskripsinya,String fotonya){
         this.ref.child("vote").child(invc).child("pilihan").child(child).setValue(new Candidates(namanya,deskripsinya,fotonya));
@@ -283,6 +292,7 @@ data.put(ds.getKey(),ds.getValue().toString());
         String invcode = "" ;
         Long milis = System.currentTimeMillis()/1000L;
         String milo = encodeString(milis.toString());
+        invcode = milo ;
         this.lastinvc = invcode;
         return invcode;
     }
@@ -355,19 +365,7 @@ data.put(ds.getKey(),ds.getValue().toString());
         }
     }
 
-    private static class VoteData {
-        String nama, startfrom;
-        int durasi;
-        boolean needapprove, privat;
 
-        public VoteData(String nama, Integer durasi, boolean needapprove, boolean privat, String startfrom) {
-            this.nama = nama;
-            this.durasi = durasi;
-            this.needapprove = needapprove;
-            this.privat = privat;
-            this.startfrom = startfrom;
-        }
-    }
 
 
 }

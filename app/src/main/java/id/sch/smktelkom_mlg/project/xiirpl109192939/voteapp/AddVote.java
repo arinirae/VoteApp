@@ -3,6 +3,7 @@ package id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -43,8 +44,10 @@ public class AddVote extends AppCompatActivity {
                         + "-" + String.valueOf(cal.get(Calendar.DATE) ) + " " + String.valueOf(cal.get(Calendar.HOUR) )
                         + "-" + String.valueOf(cal.get(Calendar.MINUTE) )+ "-" + String.valueOf(cal.get(Calendar.SECOND) );
                 vp.addVote(nama,Integer.parseInt(edtime.getText().toString()),cbn,cbp,wktu);
+                String nowcode = vp.getLastInvCode();
                 inaddchoices = new Intent(getBaseContext() , AddCandidates.class);
-                inaddchoices.putExtra(INVC,vp.getLastInvCode());
+                inaddchoices.putExtra(INVC,nowcode);
+                Log.d("cek",vp.getLastInvCode());
                 startActivityForResult(inaddchoices, REQUEST_CODE_ADDCAN);
 
             }

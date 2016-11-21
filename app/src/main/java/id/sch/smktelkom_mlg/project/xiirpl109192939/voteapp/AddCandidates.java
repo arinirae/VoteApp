@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ public class AddCandidates extends AppCompatActivity {
     public static final int REQUEST_CODE_ADD = 112;
     public static final String CAN_CON = "0";
     public static final String INVC = "INVC";
+    public static final int REQUEST_CODE_INVC = 153;
     ArrayList<Candidates> mListCan = new ArrayList<>();
     ArrayList<Bitmap> poto = new ArrayList<>();
     CandidatesAdapter mAdapterCan;
@@ -32,15 +34,16 @@ public class AddCandidates extends AppCompatActivity {
     VoteAPI vp = new VoteAPI();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        nowCode = getIntent().getStringExtra(AddVote.INVC);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_candidates);
+        nowCode = getIntent().getStringExtra(AddVote.INVC);
         tvCan = (TextView) findViewById(R.id.tvCandidates);
         fabAC = (FloatingActionButton) findViewById(R.id.fabAC);
         fabAC.setImageResource(R.drawable.ic_add_black_24dp);
         fabAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                vp.incrementAdd();
                 Intent intentadd = new Intent(getBaseContext(),InputCanActivity.class);
                 intentadd.putExtra(INVC,nowCode);
                 intentadd.putExtra(CAN_CON,String.valueOf(vp.getIncrement()));
@@ -48,12 +51,13 @@ public class AddCandidates extends AppCompatActivity {
             }
         });
         fabNext = (FloatingActionButton) findViewById(R.id.fabNext);
+        fabNext.setImageResource(R.drawable.ic_play_arrow_black_24dp);
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentback = new Intent();
-                setResult(RESULT_OK,intentback);
-                finish();
+                Intent intentinvc = new Intent(getBaseContext(), InvcActivity.class);
+                intentinvc.putExtra(INVC,nowCode);
+                startActivityForResult(intentinvc, REQUEST_CODE_INVC);
             }
         });
         fabNext.setVisibility(View.GONE);
@@ -78,7 +82,7 @@ public class AddCandidates extends AppCompatActivity {
             showHideFab();
             return;
         }else if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK) {
-            vp.incrementAdd();
+
             mListCan.add(new Candidates(data.getStringExtra(InputCanActivity.NAMA_CAN),data.getStringExtra(InputCanActivity.DESK_CAN),data.getStringExtra(InputCanActivity.FURI_CAN)));
             Toast.makeText(this, "Candidates Added", Toast.LENGTH_SHORT).show();
             mAdapterCan.notifyDataSetChanged();
