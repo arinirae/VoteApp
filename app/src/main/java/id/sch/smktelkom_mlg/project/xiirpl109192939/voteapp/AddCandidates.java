@@ -84,10 +84,15 @@ public class AddCandidates extends AppCompatActivity {
         }else if (requestCode == REQUEST_CODE_ADD && resultCode == RESULT_OK) {
 
             mListCan.add(new Candidates(data.getStringExtra(InputCanActivity.NAMA_CAN),data.getStringExtra(InputCanActivity.DESK_CAN),data.getStringExtra(InputCanActivity.FURI_CAN)));
+            vp.addVoteCandidates(nowCode,String.valueOf(vp.getIncrement()),data.getStringExtra(InputCanActivity.NAMA_CAN),data.getStringExtra(InputCanActivity.DESK_CAN),data.getStringExtra(InputCanActivity.FURI_CAN));
             Toast.makeText(this, "Candidates Added", Toast.LENGTH_SHORT).show();
             mAdapterCan.notifyDataSetChanged();
             showHideFab();
             return;
+        }else if(requestCode == REQUEST_CODE_INVC && resultCode == RESULT_OK){
+            Intent intentback = new Intent();
+            setResult(RESULT_OK, intentback);
+            finish();
         }
     }
 

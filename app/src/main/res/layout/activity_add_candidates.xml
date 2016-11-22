@@ -56,7 +56,7 @@
         android:id="@+id/fabAC"
         android:clickable="true"
         app:fabSize="normal"
-        android:layout_below="@+id/fabNext"
+
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         app:layout_anchorGravity="bottom|right|end"/>
@@ -65,8 +65,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/fabNext"
         android:clickable="true"
-        android:layout_marginBottom="60dp"
         app:fabSize="normal"
+        android:layout_above="@+id/fabAC"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         app:layout_anchorGravity="bottom|right|end"/>

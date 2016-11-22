@@ -23,15 +23,37 @@ public class VoteFragment extends Fragment {
     EditText edInvcJ;
     FirebaseAuth firebaseAuth;
     FirebaseUser user;
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if("loading..." == vpvf.getChildData("needapprove") && vpvf.startListenerToString(0) == "null"){
+                Toast.makeText(getActivity().getBaseContext(), "Joining Vote ...", Toast.LENGTH_SHORT).show();
+            }else{
+                timerHandler.removeCallbacks(timerRunnable);
+                vpvf.fetchDataChild(edInvcJ.getText().toString());
+                Intent intent = new Intent(view.getContext(), VoteActivity.class);
+                intent.putExtra(INVC,edInvcJ.getText().toString().trim());
+                vpvf.addVoteUser(edInvcJ.getText().toString(),user.getUid(),vpvf.getChildData("needapprove"),"false");
+                vpvf.newListenTo("https://voteapp-e3557.firebaseio.com/vote/"+edInvcJ.getText().toString().trim()+"/uservote/count");
+
+                view.getContext().startActivity(intent);
+            }
+            timerHandler.postDelayed(this, 3000);
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {
         Firebase.setAndroidContext(getActivity().getBaseContext());
         firebaseAuth = FirebaseAuth.getInstance();
+        timerHandler.postDelayed(timerRunnable,0);
         user = firebaseAuth.getCurrentUser();
         vpvf = new VoteAPI();
         view = inflater.inflate(R.layout.activity_vote, container, false);
         vpvf.setRef("https://voteapp-e3557.firebaseio.com/vote/");
+
         vpvf.fetchData();
 
         edInvcJ = (EditText) view.findViewById(R.id.editTextInvcJ);
@@ -55,13 +77,8 @@ public class VoteFragment extends Fragment {
 
     public void gotoVote(){
         if(vpvf.findKey(edInvcJ.getText().toString())) {
-            vpvf.fetchDataChild(edInvcJ.getText().toString());
-            Intent intent = new Intent(view.getContext(), VoteActivity.class);
-            intent.putExtra(INVC,edInvcJ.getText().toString().trim());
-            vpvf.addVoteUser(edInvcJ.getText().toString(),user.getUid(),vpvf.getChildData("needapprove"),"false");
-            view.getContext().startActivity(intent);
-
-        }else if (null==vpvf.getKey(0)) {
+            timerHandler.postDelayed(timerRunnable,2000);
+        }else if ("null"==vpvf.getKey(0)) {
             Toast.makeText(getActivity().getBaseContext(), "Loading data... Please Try Again", Toast.LENGTH_SHORT).show();
         }else {
             Toast.makeText(getActivity().getBaseContext(), "There is no vote using that code", Toast.LENGTH_SHORT).show();

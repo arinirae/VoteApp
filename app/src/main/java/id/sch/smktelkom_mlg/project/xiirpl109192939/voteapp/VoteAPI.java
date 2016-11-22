@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.UserVote;
@@ -47,7 +48,7 @@ public class VoteAPI {
     public HashMap<String, String> storage = new HashMap <String, String>();
     public int increment =0 ;
     private String imageStorageUrl = "gs://voteapp-e3557.appspot.com/image/";
-
+    private String dataVU;
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
         Firebase.setAndroidContext(context);
@@ -113,8 +114,7 @@ data.put(ds.getKey(),ds.getValue().toString());
         String dts ="null";
         if (null == datakey.get(index)){
             //do nothing
-            getKey(index);
-        }else{
+          }else{
             dts = datakey.get(index).toString();
         }
         return dts;
@@ -126,7 +126,6 @@ data.put(ds.getKey(),ds.getValue().toString());
         String dts ="loading...";
         if (null == datachild.get(what)){
             //do nothing
-            getChildData(what);
         }else{
             dts = datachild.get(what).toString();
         }
@@ -210,6 +209,27 @@ data.put(ds.getKey(),ds.getValue().toString());
             });
         }
     }
+    public String startListenerToString(Integer ke){
+        final String[] str = {"null"};
+        if(null == listener.get(ke)){
+            return("no data to listen");
+        }else {
+            listener.get(ke).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if(null == dataSnapshot.getValue(String.class)){
+                        str[0] = "null";}else{
+                        str[0] = dataSnapshot.getValue(String.class);}
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        }
+        return str[0];
+    }
     public void startListenerToImageView(final String urlImg, final Context context, final Integer ke, final ImageView txiv) {
         if (null == listener.get(ke)) {
             txiv.setImageResource(R.drawable.ic_portrait_black_24dp);
@@ -271,7 +291,22 @@ data.put(ds.getKey(),ds.getValue().toString());
     }
     public void addVoteUser(String invc,String id,String approved,String sudahpilih){
         Firebase avuref = new Firebase("https://voteapp-e3557.firebaseio.com/vote/");
-        avuref.child(invc).child("vote_user").child(id).setValue(new UserVote(approved,sudahpilih));
+        Firebase countavu = new Firebase("https://voteapp-e3557.firebaseio.com/vote/"+invc+"/uservote/count");
+        ValueEventListener listena = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                dataVU = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        };
+
+        countavu.setValue(Integer.parseInt(dataVU)+1);
+
+        avuref.child(invc).child("uservote").child(id).setValue(new UserVote(approved,sudahpilih));
     }
     public void addVote(String namanya,int durasinya,boolean needapprove,boolean privat,String startfromnya){
         Map<String,String> pilihan = new HashMap<String,String>();
@@ -284,8 +319,8 @@ data.put(ds.getKey(),ds.getValue().toString());
         this.lastinvc = rc.getKey();
 
     }
-    public void addVoteCandidates(String invc,String child,String namanya,String deskripsinya,String fotonya){
-        this.ref.child("vote").child(invc).child("pilihan").child(child).setValue(new Candidates(namanya,deskripsinya,fotonya));
+    public void addVoteCandidates(String invc,String id,String namanya,String deskripsinya,String fotonya){
+        this.ref.child("vote").child(invc).child("pilihan").child(id).setValue(new Candidates(namanya,deskripsinya,fotonya));
     }
     /*-- CUSTOM FUNCTION --*/
     public String getNewInvCode(){
