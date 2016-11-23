@@ -49,6 +49,7 @@ public class VoteAPI {
     public int increment =0 ;
     private String imageStorageUrl = "gs://voteapp-e3557.appspot.com/image/";
     private String dataVU;
+    private String vote_location = "https://voteapp-e3557.firebaseio.com/vote/";
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
         Firebase.setAndroidContext(context);
@@ -104,7 +105,6 @@ data.put(ds.getKey(),ds.getValue().toString());
         String dts ="loading...";
         if (null == data.get(what)){
             //do nothing
-            dts = getData(what);
         }else{
             dts = data.get(what).toString();
         }
@@ -290,22 +290,7 @@ data.put(ds.getKey(),ds.getValue().toString());
         this.ref.push().setValue(new UserData(username, email, password));
     }
     public void addVoteUser(String invc,String id,String approved,String sudahpilih){
-        Firebase avuref = new Firebase("https://voteapp-e3557.firebaseio.com/vote/");
-        Firebase countavu = new Firebase("https://voteapp-e3557.firebaseio.com/vote/"+invc+"/uservote/count");
-        ValueEventListener listena = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                dataVU = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        };
-
-        countavu.setValue(Integer.parseInt(dataVU)+1);
-
+        Firebase avuref = new Firebase(vote_location);
         avuref.child(invc).child("uservote").child(id).setValue(new UserVote(approved,sudahpilih));
     }
     public void addVote(String namanya,int durasinya,boolean needapprove,boolean privat,String startfromnya){
@@ -320,7 +305,8 @@ data.put(ds.getKey(),ds.getValue().toString());
 
     }
     public void addVoteCandidates(String invc,String id,String namanya,String deskripsinya,String fotonya){
-        this.ref.child("vote").child(invc).child("pilihan").child(id).setValue(new Candidates(namanya,deskripsinya,fotonya));
+        Firebase avcr = new Firebase(vote_location);
+       avcr.child(invc).child("pilihan").child(id).setValue(new Candidates(namanya,deskripsinya,fotonya));
     }
     /*-- CUSTOM FUNCTION --*/
     public String getNewInvCode(){

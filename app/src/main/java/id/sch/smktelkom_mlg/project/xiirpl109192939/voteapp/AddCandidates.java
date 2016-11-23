@@ -55,13 +55,15 @@ public class AddCandidates extends AppCompatActivity {
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(vp.getIncrement()>=2){
                 Intent intentinvc = new Intent(getBaseContext(), InvcActivity.class);
                 intentinvc.putExtra(INVC,nowCode);
-                startActivityForResult(intentinvc, REQUEST_CODE_INVC);
+                startActivityForResult(intentinvc, REQUEST_CODE_INVC);}
+                else{
+                    Toast.makeText(AddCandidates.this, "You must add more candidates", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-        fabNext.setVisibility(View.GONE);
-
 
         vp.init("https://voteapp-e3557.firebaseio.com/vote/",this);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycleViewCan);
@@ -101,10 +103,7 @@ public class AddCandidates extends AppCompatActivity {
             tvCan.setText("Add minimal 2 candidates");
         }
         if(vp.getIncrement()>=2){
-            fabNext.setVisibility(View.VISIBLE);
         tvCan.setVisibility(View.GONE);
-        }else{
-            fabNext.setVisibility(View.GONE);
         }
         if(vp.getIncrement()>=10){
             fabAC.setVisibility(View.GONE);
