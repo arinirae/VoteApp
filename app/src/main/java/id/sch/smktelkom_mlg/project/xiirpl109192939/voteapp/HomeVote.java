@@ -34,18 +34,18 @@ public class HomeVote extends AppCompatActivity
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
+        VoteAPI ref = new VoteAPI();
         if (firebaseAuth.getCurrentUser() == null) {
             finish();
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
+            //API
 
-        //API
-        VoteAPI ref = new VoteAPI();
-        ref.init("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/", this);
-        ref.newListenTo("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/name");
-        ref.newListenTo("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/email");
-        //ref.newListenTo("gs://voteapp-e3557.appspot.com/Profile/profile_"+(user.getUid())+".jpg");
-        //end API
+            ref.init("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/", this);
+            ref.newListenTo("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/name");
+            ref.newListenTo("https://voteapp-e3557.firebaseio.com/userInformation/" + (user.getUid()) + "/email");
+            //ref.newListenTo("gs://voteapp-e3557.appspot.com/Profile/profile_"+(user.getUid())+".jpg");
+            //end API
 
         //firebase
         firebaseAuth = FirebaseAuth.getInstance();
