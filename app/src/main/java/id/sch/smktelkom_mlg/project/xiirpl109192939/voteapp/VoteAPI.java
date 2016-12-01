@@ -21,12 +21,14 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.UserVote;
+import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Vote;
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.VoteData;
 
 /**-KVU0TrhkmVuBMmTedwz
@@ -50,6 +52,8 @@ public class VoteAPI {
     private String imageStorageUrl = "gs://voteapp-e3557.appspot.com/image/";
     private String dataVU;
     private String vote_location = "https://voteapp-e3557.firebaseio.com/vote/";
+    private ArrayList<VoteData> vdlist = new ArrayList<VoteData>();
+
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
         Firebase.setAndroidContext(context);
@@ -81,6 +85,28 @@ data.put(ds.getKey(),ds.getValue().toString());
             }
         });
     }
+    public void fetchDataTo(String param){
+        switch (param){
+            case "VoteData":
+                this.ref.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        vdlist.clear();
+                        vdlist.add(dataSnapshot.getValue(VoteData.class));
+                    }
+
+                    @Override
+                    public void onCancelled(FirebaseError firebaseError) {
+
+                    }
+                });
+                break;
+            default:
+
+                break;
+        }
+
+    }
     public void fetchDataChild(String children){
         this.ref.child(children).addValueEventListener(new ValueEventListener() {
             @Override
@@ -101,6 +127,9 @@ data.put(ds.getKey(),ds.getValue().toString());
     }
 
     /*-- GET FUNCTION --*/
+    public ArrayList<VoteData> getVoteData(){
+    return  this.vdlist;
+    }
     public String getData(String what){
         String dts ="loading...";
         if (null == data.get(what)){
@@ -306,7 +335,7 @@ data.put(ds.getKey(),ds.getValue().toString());
     }
     public void addVoteCandidates(String invc,String id,String namanya,String deskripsinya,String fotonya){
         Firebase avcr = new Firebase(vote_location);
-       avcr.child(invc).child("pilihan").child(id).setValue(new Candidates(namanya,deskripsinya,fotonya));
+       avcr.child(invc).child("pilihan").child(id).setValue(new Candidates(namanya,deskripsinya,fotonya,"0"));
     }
     /*-- CUSTOM FUNCTION --*/
     public String getNewInvCode(){

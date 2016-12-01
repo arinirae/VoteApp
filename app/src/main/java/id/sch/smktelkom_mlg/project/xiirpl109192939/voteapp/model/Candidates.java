@@ -9,11 +9,13 @@ public class Candidates {
     public String  nama;
     public  String deskripsi;
     public String foto;
+    public String suara;
 
-    public Candidates(String nama,String deskripsi,String foto){
+    public Candidates(String nama,String deskripsi,String foto,String suara){
         this.nama = nama;
         this.deskripsi = deskripsi;
         this.foto = foto;
+        this.suara  = suara;
     }
 
 
@@ -27,5 +29,13 @@ public class Candidates {
 
     public String getFoto() {
         return foto;
+    }
+
+    public String getSuara() {
+        return suara;
+    }
+
+    public void setSuara(String suara) {
+        this.suara = suara;
     }
 }
