@@ -6,6 +6,22 @@
     <string name="title_activity_set_candidates">SetCandidates</string>
     <string name="title_activity_home_vote">HomeVote</string>
 
+    <string name = "next">NEXT</string>
+    <string name = "skip">SKIP</string>
+    <string name = "register">GOT IT</string>
+
+    <string name = "slide_1_title">Vote App</string>
+    <string name = "slide_1_desc">Buat Voting dan Lakukan Voting secara Online</string>
+
+    <string name = "slide_2_title">Real Time</string>
+    <string name = "slide_2_desc">Bekerja secara Real Time</string>
+
+    <string name = "slide_3_title">Anytime and Everywhere</string>
+    <string name = "slide_3_desc">Dapat digunakan dimanapun dan kapanpun Anda berada</string>
+
+    <string name = "slide_4_title">Easy To Use</string>
+    <string name = "slide_4_desc">Memudakahkan Anda saat akan melakukan voting tanpa harus mencatat manual</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
