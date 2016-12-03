@@ -29,7 +29,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".HasilActivity" />
+        <activity android:name=".FotoProifleActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".AddVote" />
         <activity

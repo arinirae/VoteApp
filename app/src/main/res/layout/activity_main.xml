@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="User Registration"
+            android:text="DAFTAR"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -34,14 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter your name" />
+            android:hint="Nama" />
 
         <EditText
             android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter your email"
+            android:hint="Email"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter your password"
+            android:hint="Password"
             android:inputType="textPassword" />
 
         <EditText
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Retype your password"
+            android:hint="Ulang Password"
             android:inputType="textPassword" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:text="Gender"
+            android:text="Jenis Kelamin"
             android:textSize="23dp" />
 
         <LinearLayout
@@ -108,7 +108,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Register User" />
+            android:background="@android:color/holo_red_dark"
+            android:text="SELANJUTNYA"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/textViewSignin"

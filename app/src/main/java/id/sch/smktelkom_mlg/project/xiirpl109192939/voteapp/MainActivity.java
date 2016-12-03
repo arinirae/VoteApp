@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +20,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -38,13 +41,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
-    private StorageReference mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Register");
 
         //inisialisasi
         tvregis = (TextView) findViewById(R.id.textViewRegis);
@@ -57,12 +58,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textViewSignin = (TextView) findViewById(R.id.textViewSignin);
+        textViewSignin.setText(Html.fromHtml("Sudah punya akun ?" + "<b>" + " Masuk" + "</b>"));
         progressDialog = new ProgressDialog(this);
         //end inisialisasi
 
         //firebase
         Firebase.setAndroidContext(this);
-        mStorage = FirebaseStorage.getInstance().getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseAuth = FirebaseAuth.getInstance();
         /*if (firebaseAuth.getCurrentUser() != null) {
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String password = editTextPassword.getText().toString().trim();
         String repassword = editTextRepassword.getText().toString().trim();
         String nama = editTextNama.getText().toString().trim();
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         String gender = radio();
         //validasi form
         if (TextUtils.isEmpty(nama)) {
@@ -111,6 +113,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         } else if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Masukkan Email Anda", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (!email.matches(emailPattern)) {
+            Toast.makeText(this, "Format Email Salah", Toast.LENGTH_SHORT).show();
             return;
         } else if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "Masukkan Password Anda", Toast.LENGTH_SHORT).show();
@@ -123,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         } else {
             //end validasi form OK
-            progressDialog.setMessage("Registering user ...");
+            progressDialog.setMessage("Proses ...");
             progressDialog.show();
             //end validasi form OK
 
@@ -134,19 +139,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 String email = editTextEmail.getText().toString().trim();
-                                String nama = editTextNama.getText().toString().trim();
+                                String name = editTextNama.getText().toString().trim();
                                 String gender = radio();
-                                String profilpicture = "profile_" + vp.getLastInvCode() + ".jpg";
 
-                                UserInformation userInformation = new UserInformation(nama, email, gender);
+                                UserInformation userInformation = new UserInformation(name, email, gender);
 
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                                 databaseReference.child("userInformation").child(user.getUid()).setValue(userInformation);
                                 startActivity(new Intent(getApplicationContext(), FotoProifleActivity.class));
-                                Toast.makeText(MainActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Proses...", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(MainActivity.this, "Could not register, please try again", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Proses Gagal", Toast.LENGTH_SHORT).show();
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthWeakPasswordException e) {
+                                    Log.e("WeakPass", e.getMessage());
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
+                                    Log.e("InvalidAuth", e.getMessage());
+                                } catch (FirebaseAuthUserCollisionException e) {
+                                    Log.e("Collision", e.getMessage());
+                                } catch (Exception e) {
+                                    Log.e("Lainnya", e.getMessage());
+                                }
                             }
                             progressDialog.dismiss();
                             finish();

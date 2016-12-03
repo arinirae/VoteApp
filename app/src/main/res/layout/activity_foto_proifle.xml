@@ -16,13 +16,18 @@
         android:id="@+id/buttonCamera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pick Camera" />
+        android:background="@android:color/holo_red_dark"
+        android:text="Ambil Dari Camera"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/buttonGallery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pick Gallery" />
+        android:layout_marginTop="8dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="Ambil Dari Galeri"
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +49,10 @@
             android:id="@+id/buttonNext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Done" />
+            android:layout_marginTop="12dp"
+            android:background="@android:color/holo_red_dark"
+            android:text="SELESAI"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
