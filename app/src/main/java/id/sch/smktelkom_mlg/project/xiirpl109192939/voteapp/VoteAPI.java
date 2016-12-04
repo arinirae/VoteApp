@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Base64;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -92,7 +93,9 @@ data.put(ds.getKey(),ds.getValue().toString());
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         vdlist.clear();
-                        vdlist.add(dataSnapshot.getValue(VoteData.class));
+                            vdlist.add(dataSnapshot.getValue(VoteData.class));
+
+                        //error bounce type
                     }
 
                     @Override
@@ -260,6 +263,44 @@ data.put(ds.getKey(),ds.getValue().toString());
         return str[0];
     }
     public void startListenerToImageView(final String urlImg, final Context context, final Integer ke, final ImageView txiv) {
+        if (null == listener.get(ke)) {
+            txiv.setImageResource(R.drawable.ic_portrait_black_24dp);
+        } else {
+            listener.get(ke).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (null == dataSnapshot.getValue(String.class)) {
+                        txiv.setImageResource(R.drawable.ic_portrait_black_24dp);
+                    } else {
+                        //txiv.setText(dataSnapshot.getValue(String.class));
+                        FirebaseStorage fsref = FirebaseStorage.getInstance();
+                        StorageReference ref = fsref.getReferenceFromUrl(urlImg);
+//                        "users/me/profile.png"
+                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                // Got the download URL for 'users/me/profile.png'
+                                // Pass it to Picasso to download, show in ImageView and caching
+                                Picasso.with(context).load(uri.toString()).into(txiv);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle any errors
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        }
+    }
+
+    public void startListenerToImageButton(final String urlImg, final Context context, final Integer ke, final ImageButton txiv) {
         if (null == listener.get(ke)) {
             txiv.setImageResource(R.drawable.ic_portrait_black_24dp);
         } else {

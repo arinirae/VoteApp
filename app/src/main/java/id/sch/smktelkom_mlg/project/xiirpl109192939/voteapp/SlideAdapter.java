@@ -29,7 +29,7 @@ public class SlideAdapter extends PagerAdapter {
         ctx = c;
         this.invc = invc;
         vp = new VoteAPI();
-        vp.setRef(R.string.firebase_base+"/vote/"+ invc);
+        vp.setRef("https://voteapp-e3557.firebaseio.com/vote/"+ invc);
         vp.fetchDataTo("VoteData");
         mhandler.postDelayed(new Runnable() {
             public void run() {
@@ -50,8 +50,9 @@ public class SlideAdapter extends PagerAdapter {
         final View itemView = layoutInflater.inflate(R.layout.activity_slide, container, false);
         final ImageButton imageButton = (ImageButton) itemView.findViewById(R.id.swip_image_view);
         TextView textView = (TextView) itemView.findViewById(R.id.imageCount);
-        String imgurl = "gs://voteapp-e3557.appspot.com/images/"+vdl.get(position);
-        imageButton.setImageResource(imageResources[position]);
+        String imgurl = "https://voteapp-e3557.firebaseio.com/vote/"+ invc+"/pilihan/"+position+"/foto";
+        vp.newListenTo(imgurl);
+        vp.startListenerToImageButton(imgurl,ctx,position,imageButton);
         textView.setText("Calon : " + (position + 1));
         container.addView(itemView);
 
