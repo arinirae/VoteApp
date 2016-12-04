@@ -12,15 +12,15 @@
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".VoteActivity" />
         <!-- <activity android:name=".RiwayatVote" /> -->
         <!-- <activity android:name=".HasilActivity" /> -->
         <activity
             android:name=".HomeVote"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".KetVoteActivity" />
+
         <activity
-            android:name=".splash.splashActivity"
+            android:name=".AppIntroActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,14 +28,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name=".Hasil" />-->
+
+        <activity android:name=".FotoProifleActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".AddVote" />
-        <activity android:name=".InputCanActivity" />
         <activity
             android:name=".AddCandidates"
             android:label="@string/title_activity_add_candidates" />
-        <activity android:name=".InvcActivity"></activity>
+        <activity android:name=".splash.splashActivity"></activity>
     </application>
 
 </manifest>

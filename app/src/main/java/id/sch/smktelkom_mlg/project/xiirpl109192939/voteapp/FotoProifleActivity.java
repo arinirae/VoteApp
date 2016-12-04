@@ -33,7 +33,7 @@ public class FotoProifleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foto_proifle);
-        setTitle("Capture Profile Image");
+        setTitle("Ambil Foto Profile");
 
         btCamera = (Button) findViewById(R.id.buttonCamera);
         btGallery = (Button) findViewById(R.id.buttonGallery);
@@ -88,7 +88,7 @@ public class FotoProifleActivity extends AppCompatActivity {
             Bitmap imageBitmap = data.getParcelableExtra("data");
             vp.uploadBitmapToFireStorage(imageBitmap, "profile_" + user.getUid() + ".jpg");
             ivFoto.setImageBitmap(imageBitmap);
-            Toast.makeText(FotoProifleActivity.this, "Upload Image Profile Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(FotoProifleActivity.this, "Pendaftaran Sukses", Toast.LENGTH_SHORT).show();
 
 
 //            Uri uri = data.getData();
@@ -117,7 +117,7 @@ public class FotoProifleActivity extends AppCompatActivity {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 vp.uploadBitmapToFireStorage(bitmap, "profile_" + user.getUid() + ".jpg");
                 ivFoto.setImageBitmap(bitmap);
-                Toast.makeText(FotoProifleActivity.this, "Upload Image Profile Success", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FotoProifleActivity.this, "Pendaftaran Sukses", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }

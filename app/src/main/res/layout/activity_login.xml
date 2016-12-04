@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="User Login"
+            android:text="MASUK"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter your email"
+            android:hint="Email"
             android:inputType="textEmailAddress" />
 
         <EditText
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Enter your password"
+            android:hint="Password"
             android:inputType="textPassword" />
 
         <Button
@@ -46,7 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Sign in" />
+            android:background="@android:color/holo_red_dark"
+            android:text="MASUK"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/textViewSignUp"

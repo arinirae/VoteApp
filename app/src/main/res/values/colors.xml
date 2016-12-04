@@ -4,6 +4,38 @@
     <color name="colorPrimaryDark">#e53935</color>
     <color name="colorAccent">#e57373</color>
     <color name="colorTitle">#c62828</color>
+
+    <!-- Screens background color-->
+    <color name="bg_screen1">#CF000F</color>
+    <color name="bg_screen2">#E75926</color>
+    <color name="bg_screen3">#BB3658</color>
+    <color name="bg_screen4">#888888</color>
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#d1395c</color>
+    <color name="dot_dark_screen2">#E75926</color>
+    <color name="dot_dark_screen3">#BB3658</color>
+    <color name="dot_dark_screen4">#888888</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#93c6fd</color>
+    <color name="dot_light_screen2">#93c6fd</color>
+    <color name="dot_light_screen3">#93c6fd</color>
+    <color name="dot_light_screen4">#93c6fd</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen3</item>
+        <item>@color/dot_light_screen4</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen4</item>
+    </array>
 </resources>
     <!--Red 500 #f44336-->
     <!--50#ffebee-->
