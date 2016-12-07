@@ -1,6 +1,6 @@
 # VoteApp
 
- Penjelasan 
+##Penjelasan 
 
 Aplikasi Vote App ini digunakan untuk voting suatu kegiatan pemilihan secara realtime
 Aplikasi ini dapat :
@@ -14,7 +14,7 @@ Aplikasi ini dapat :
 
 
 
- Screenshot
+##Screenshot
 
 
 ![screenshot_2016-11-21-00-49-10](https://cloud.githubusercontent.com/assets/14922003/20464975/cfe86e7a-af85-11e6-9063-f59e9b349b70.jpg)
@@ -30,9 +30,14 @@ Aplikasi ini dapat :
 ![screenshot_2016-11-20-14-13-33](https://cloud.githubusercontent.com/assets/14922003/20464991/ef7636fa-af85-11e6-9cb3-201e83dd0d0c.png)
 
 
- Link APK
+##Link APK
 
 https://drive.google.com/open?id=0B43T45wP88yhSDM3V202VFh2RjA
+
+##Video Aplikasi
+<a href="https://drive.google.com/open?id=0B_TN1Qqk_YDCa3FwVXVUUUY5NjA"><img src="https://drive.google.com/open?id=0B_TN1Qqk_YDCSVpKSUhLbW5BMXM" 
+alt="IMAGE ALT TEXT HERE" width="600" height="450" border="10" /></a>
+
 
  Identitas Kelompok
 
