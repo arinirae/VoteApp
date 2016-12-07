@@ -36,7 +36,7 @@ https://drive.google.com/open?id=0B43T45wP88yhSDM3V202VFh2RjA
 
 ##Video Aplikasi
 <a href="https://drive.google.com/open?id=0B_TN1Qqk_YDCa3FwVXVUUUY5NjA"><img src="https://docs.google.com/uc?id=0B_TN1Qqk_YDCSVpKSUhLbW5BMXM" 
-alt="IMAGE ALT TEXT HERE" width="600" height="450" border="10" /></a>
+alt="IMAGE ALT TEXT HERE" border="10" /></a>
 
 
  Identitas Kelompok
