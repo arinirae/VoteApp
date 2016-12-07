@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Base64;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class VoteAPI {
     private String dataVU;
     private String vote_location = "https://voteapp-e3557.firebaseio.com/vote/";
     private ArrayList<VoteData> vdlist = new ArrayList<VoteData>();
-
+    private Vote votingdata ;
     /*-- CONSTRUCT --*/
     public void init(String refx,Context context){
         Firebase.setAndroidContext(context);
@@ -88,12 +89,28 @@ data.put(ds.getKey(),ds.getValue().toString());
     }
     public void fetchDataTo(String param){
         switch (param){
-            case "VoteData":
+            case "VotingData":
                 this.ref.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         vdlist.clear();
-                            vdlist.add(dataSnapshot.getValue(VoteData.class));
+                            String nama = dataSnapshot.child("nama").getValue().toString();
+                            String durasi = dataSnapshot.child("durasi").getValue().toString();
+                            boolean needapprove = dataSnapshot.child("needapprove").getValue().toString().equals("true")?true:false;
+                            String startfrom = dataSnapshot.child("startfrom").getValue().toString();
+                            boolean privat = dataSnapshot.child("privat").getValue().toString().equals("true")?true:false;
+                            Map<Integer,Candidates> candidatelist = new HashMap<Integer, Candidates>();
+                            for(DataSnapshot ds : dataSnapshot.child("pilihan").getChildren()){
+                                if(ds.getKey().toString() =="count"){
+                                    String pilihancount = ds.getValue().toString();
+                                }else{
+                                    Candidates cnd = new Candidates(ds.child("nama").getValue().toString(),ds.child("deskripsi").toString(),ds.child("foto").getValue().toString(),ds.child("suara").getValue().toString());
+                                    candidatelist.put(Integer.parseInt(ds.getKey().toString()),cnd);
+                                }
+
+                            }
+
+                            votingdata = new Vote(nama,Integer.parseInt(durasi),needapprove,privat,startfrom,candidatelist);
 
                         //error bounce type
                     }
@@ -132,6 +149,10 @@ data.put(ds.getKey(),ds.getValue().toString());
     /*-- GET FUNCTION --*/
     public ArrayList<VoteData> getVoteData(){
     return  this.vdlist;
+    }
+    public Vote getDataVoting(){
+       return  this.votingdata;
+
     }
     public String getData(String what){
         String dts ="loading...";
@@ -231,8 +252,11 @@ data.put(ds.getKey(),ds.getValue().toString());
             listener.get(ke).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if(null == dataSnapshot.getValue(String.class)){txtv.setText("null");}else{txtv.setText(dataSnapshot.getValue(String.class));}
-                }
+
+                        if(null == dataSnapshot.getValue(String.class)){txtv.setText("null");}else{txtv.setText(dataSnapshot.getValue(String.class));}
+
+
+                     }
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {

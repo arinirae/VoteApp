@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,26 +18,32 @@ import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.VoteData;
 
 public class SlideAdapter extends PagerAdapter {
 
+    public static final String POS = "0";
     public int[] imageResources =
             {R.drawable.capture1, R.drawable.capture2, R.drawable.capture3, R.drawable.capture4, R.drawable.capture5, R.drawable.capture6};
     private Context ctx;
     private LayoutInflater layoutInflater;
     private String invc;
+    String ingkod = "";
     VoteAPI vp ;
+    TextView tvnmc;
+    Integer nowpos;
+    ImageButton ib;
     Handler mhandler = new Handler();
-    ArrayList<VoteData> vdl = new ArrayList<VoteData>();
+    Vote vdl ;
     public SlideAdapter(Context c , String invc) {
         ctx = c;
         this.invc = invc;
+        Toast.makeText(c, invc, Toast.LENGTH_SHORT).show();
+
         vp = new VoteAPI();
         vp.setRef("https://voteapp-e3557.firebaseio.com/vote/"+ invc);
-        vp.fetchDataTo("VoteData");
+        vp.fetchDataTo("VotingData");
         mhandler.postDelayed(new Runnable() {
             public void run() {
-               vdl = vp.getVoteData();
+               vdl = vp.getDataVoting();
             }
         }, 2500);
-
     }
 
     @Override
@@ -44,29 +51,45 @@ public class SlideAdapter extends PagerAdapter {
         return imageResources.length;
     }
 
+
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public int getItemPosition(Object object) {
+
+        return POSITION_NONE;
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, final int position) {
         layoutInflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View itemView = layoutInflater.inflate(R.layout.activity_slide, container, false);
         final ImageButton imageButton = (ImageButton) itemView.findViewById(R.id.swip_image_view);
         TextView textView = (TextView) itemView.findViewById(R.id.imageCount);
-        String imgurl = "https://voteapp-e3557.firebaseio.com/vote/"+ invc+"/pilihan/"+position+"/foto";
-        vp.newListenTo(imgurl);
-        vp.startListenerToImageButton(imgurl,ctx,position,imageButton);
-        textView.setText("Calon : " + (position + 1));
+        TextView textViewnmc = (TextView) itemView.findViewById(R.id.textViewNamaCalon);
+        if(ingkod==""){
+            ingkod = textViewnmc.getText().toString().trim();
+        }
         container.addView(itemView);
+        textView.setText("Calon : " + (position + 1));
+        String imgurl = "https://voteapp-e3557.firebaseio.com/vote/"+ ingkod +"/pilihan/"+position+"/foto";
+        vp.newListenTo(imgurl);
+        vp.newListenTo("https://voteapp-e3557.firebaseio.com/vote/"+ ingkod +"/pilihan/"+position+"/nama");
+        vp.startListenerToImageButton(imgurl,ctx,nowpos,imageButton);
+        vp.startListenerToTextView(1,textViewnmc);
 
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), KetVoteActivity.class);
+                intent.putExtra(POS,String.valueOf(position));
                 view.getContext().startActivity(intent);
+
             }
         });
 
         return itemView;
 
     }
+
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {

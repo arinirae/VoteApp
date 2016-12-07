@@ -20,6 +20,7 @@ public class KetVoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ket_vote);
+        Firebase.setAndroidContext(this);
         //mRef = new Firebase("https://voteapp-e3557.firebaseio.com/vote/id_Xfg4d/pilihan/") + getIntent().getStringExtra(SlideAdapter.);
 //        mRef.addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -38,9 +39,9 @@ public class KetVoteActivity extends AppCompatActivity {
 //
 //            }
 //        });
-//        vapi.init("https://voteapp-e3557.firebaseio.com",this);
-//        vapi.newListenTo("https://voteapp-e3557.firebaseio.com/vote/id_Xfg4d/pilihan/0/nama");
-//        vapi.newListenTo("https://voteapp-e3557.firebaseio.com/vote/id_Xfg4d/pilihan/0/deskripsi");
+        vapi.init("https://voteapp-e3557.firebaseio.com",this);
+        vapi.newListenTo("https://voteapp-e3557.firebaseio.com/vote/id_Xfg4d/pilihan/" + getIntent().getStringExtra(SlideAdapter.POS)+ "/nama");
+        vapi.newListenTo("https://voteapp-e3557.firebaseio.com/vote/id_Xfg4d/pilihan/0/deskripsi");
 //        vapi.startListenerToTextView(0, (TextView) findViewById(R.id.tvKetVotNama));
 //        vapi.startListenerToTextView(1, (TextView) findViewById(R.id.tvKetVotDeskripsi));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
