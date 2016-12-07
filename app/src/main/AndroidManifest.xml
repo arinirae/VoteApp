@@ -18,7 +18,13 @@
             android:name=".HomeVote"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".KetVoteActivity" />
-        <activity android:name=".VoteActivity"/>
+        <activity android:name=".VoteActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".AppIntroActivity"
             android:theme="@style/AppTheme.NoActionBar">

@@ -21,6 +21,10 @@ public class Vote {
         this.cnddts = cnddts;
     }
 
+    public String getNama() {
+        return nama;
+    }
+
     public String getNamaCalon(int pos) {
         return this.cnddts.get(pos).toString();
     }

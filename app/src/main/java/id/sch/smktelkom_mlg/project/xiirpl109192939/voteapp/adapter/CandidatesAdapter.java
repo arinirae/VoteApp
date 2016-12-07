@@ -22,8 +22,10 @@ import com.squareup.picasso.Picasso;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.AddCandidates;
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.R;
 import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
+import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Vote;
 
 /**
  * Created by vergie on 14/11/16.
@@ -31,6 +33,21 @@ import id.sch.smktelkom_mlg.project.xiirpl109192939.voteapp.model.Candidates;
 public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.ViewHolder> {
     ArrayList<Candidates>   candidatelist;
     private Context context;
+
+    public CandidatesAdapter(AddCandidates context, ArrayList<Candidates> mListCan) {
+
+    }
+
+    public CandidatesAdapter(Context context, ArrayList<Vote> voteList) {
+        this.context = context;
+        this.candidatelist = candidatelist;
+    }
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.candidate_list,parent,false);
@@ -64,16 +81,6 @@ public class CandidatesAdapter extends RecyclerView.Adapter<CandidatesAdapter.Vi
         if(candidatelist!=null)
             return candidatelist.size();
         return 0;
-    }
-
-    public CandidatesAdapter(Context context, ArrayList<Candidates> candidatelist){
-        this.context = context;
-        this.candidatelist = candidatelist;
-    }
-
-    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
-        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
